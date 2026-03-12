@@ -86,7 +86,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 56px;display:fl
 .menu-cta:hover{background:var(--white)!important;color:var(--black)!important;}
 
 /* HERO */
-#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--black);}
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--black);padding-top:34px;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 50% 45%,rgba(255,255,255,.05) 0%,rgba(255,255,255,.02) 30%,transparent 65%),radial-gradient(ellipse 30% 20% at 50% 100%,rgba(255,255,255,.04) 0%,transparent 60%);}
 .particles{position:absolute;inset:0;overflow:hidden;}
 .particle{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:floatUp linear infinite;}
@@ -276,6 +276,11 @@ section{position:relative;z-index:2;}
 }
 .ac-comm-card:hover .ac-comm-front{opacity:0;transform:translateY(-6px);}
 .ac-comm-card:hover .ac-comm-back{opacity:1;transform:translateY(0);}
+.team-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;width:100%;}
+.team-card{height:140px;}
+.team-card-sg{border-color:rgba(255,255,255,.2)!important;}
+.team-card .ac-comm-back{flex-direction:column;gap:6px;}
+.team-card-role{font-family:'Sorts Mill Goudy',serif;font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px;}
 .ac-detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
 .ac-dk{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
 .ac-dv{font-family:'Playfair Display',serif;font-size:14px;color:var(--light);}
@@ -391,12 +396,101 @@ section{position:relative;z-index:2;}
 .submit-btn:hover{background:var(--cream);box-shadow:0 0 32px rgba(255,255,255,.2);}
 
 /* FOOTER */
-footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);padding:50px 60px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;overflow:hidden;}
-.footer-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:.25em;text-transform:uppercase;color:var(--white);text-shadow:0 0 16px rgba(255,255,255,.2);}
-.footer-links{display:flex;gap:28px;list-style:none;}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:10px;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}
-.footer-links a:hover{color:var(--white);}
-.footer-copy{font-size:10px;color:var(--muted);letter-spacing:.12em;}
+footer{
+  background:var(--black);
+  border-top:1px solid rgba(255,255,255,.07);
+  position:relative;z-index:2;overflow:hidden;
+  padding:0;
+}
+.footer-main{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:0;
+  padding:64px 72px 52px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+/* dividers between columns */
+.footer-main > div:not(:first-child){
+  border-left:1px solid rgba(255,255,255,.06);
+  padding-left:48px;
+}
+.footer-col-logo{padding-right:48px;}
+.footer-logo{
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:900;
+  letter-spacing:.25em;text-transform:uppercase;color:var(--white);
+  text-shadow:0 0 16px rgba(255,255,255,.15);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.footer-logo-icon{
+  width:20px;height:20px;opacity:.7;
+}
+.footer-tagline{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:13px;color:var(--muted);line-height:1.8;
+  margin-bottom:24px;max-width:220px;
+}
+.footer-sdg-badges{display:flex;gap:7px;flex-wrap:wrap;}
+.about-sdg-row{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-top:32px;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.about-sdg-label{
+  font-family:'Sorts Mill Goudy',serif;font-size:9px;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-right:4px;
+}
+.sdg-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:999px;
+  padding:5px 12px 5px 8px;
+  font-family:'Sorts Mill Goudy',serif;font-size:10px;
+  letter-spacing:.06em;
+  transition:opacity .25s;
+  opacity:.85;
+}
+.sdg-badge:hover{opacity:1;}
+.sdg-badge-num{
+  font-family:'Playfair Display',serif;font-size:13px;font-weight:700;
+  line-height:1;
+}
+.sdg-4{background:rgba(197,25,45,.18);border:1px solid rgba(197,25,45,.35);}
+.sdg-4 .sdg-badge-num{color:#e8687a;}
+.sdg-4 span:last-child{color:rgba(232,104,122,.7);}
+.sdg-16{background:rgba(0,104,157,.18);border:1px solid rgba(0,104,157,.35);}
+.sdg-16 .sdg-badge-num{color:#4ab0df;}
+.sdg-16 span:last-child{color:rgba(74,176,223,.7);}
+.sdg-17{background:rgba(25,72,106,.18);border:1px solid rgba(25,72,106,.35);}
+.sdg-17 .sdg-badge-num{color:#5a9abf;}
+.sdg-17 span:last-child{color:rgba(90,154,191,.7);}
+
+.footer-col-title{
+  font-family:'Sorts Mill Goudy',serif;font-size:9px;
+  letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.28);
+  margin-bottom:22px;
+}
+.footer-col-links{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.footer-col-links a{
+  font-family:'Sorts Mill Goudy',serif;font-size:13px;
+  color:rgba(255,255,255,.45);text-decoration:none;
+  transition:color .25s;
+}
+.footer-col-links a:hover{color:var(--white);}
+
+.footer-bottom{
+  padding:20px 72px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.12em;}
+.footer-bottom-tag{font-family:'IM Fell English',serif;font-style:italic;font-size:11px;color:rgba(255,255,255,.12);}
+
+@media(max-width:900px){
+  .footer-main{grid-template-columns:1fr 1fr;gap:0;padding:40px 24px 32px;}
+  .footer-main > div:not(:first-child){border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.06);padding-top:28px;}
+  .footer-col-logo{grid-column:span 2;padding-right:0;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:28px;}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;padding:16px 24px;}
+}
 
 /* SCROLL REVEAL */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
@@ -417,6 +511,20 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
   .hero-meta{flex-direction:column;}
   .hm-item{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.1);}
 }
+
+
+
+
+
+100%{transform:translateX(-50%);};}
+
+
+.sdg-strip{background:#ffffff;padding:22px 0;overflow:hidden;border-top:3px solid #ffffff;border-bottom:3px solid #ffffff;display:block;position:relative;z-index:5;}
+.sdg-strip-track{display:flex;width:max-content;animation:sdgMarquee 30s linear infinite;}
+.sdg-strip-track:hover{animation-play-state:paused;}
+.sdg-strip-text{font-family:'Sorts Mill Goudy',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#111;white-space:nowrap;display:flex;align-items:center;gap:32px;padding-right:32px;}
+.sdg-strip-dot{width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;}
+@keyframes sdgMarquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 </style>
 </head>
 <body>
@@ -440,6 +548,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
     <a href="#registration" onclick="closeMenu()" class="menu-cta">Register Interest</a>
   </nav>
 </nav>
+
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -538,21 +648,22 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
 <!-- ABOUT -->
 <section id="about">
   <div class="sec-inner">
-    <div class="about-grid">
-      <div class="reveal">
-        <p class="sec-tag">About xiMUN</p>
-        <h2 class="sec-h">Forging the Next Generation of Leaders</h2>
-        <div class="od" style="justify-content:flex-start;margin:18px 0 24px"><div class="od-line" style="max-width:80px"></div><div class="od-d"></div><div class="od-c"></div><div class="od-d"></div><div class="od-line" style="max-width:40px"></div></div>
-        <p class="sec-body">xiMUN is a premier Model United Nations conference that challenges delegates to engage with the world's most pressing issues through rigorous debate, collaborative problem-solving, and the art of diplomacy.<br><br>Delegates step into the shoes of world leaders — crafting resolutions, building coalitions, and navigating the complexities of international relations in an atmosphere of intellectual rigour and mutual respect.</p>
-      </div>
-      <div class="about-stats reveal">
-        <div class="stat-card"><div class="stat-n">70+</div><div class="stat-l">Delegates</div></div>
-        <div class="stat-card"><div class="stat-n">30+</div><div class="stat-l">Nations Represented</div></div>
-        <div class="stat-card"><div class="stat-n">2</div><div class="stat-l">Days of Debate</div></div>
-      </div>
+    <div class="reveal" style="text-align:center;max-width:800px;margin:0 auto;">
+      <p class="sec-tag" style="justify-content:center;">About xiMUN</p>
+      <h2 class="sec-h" style="text-align:center;">Forging the Next Generation of Leaders</h2>
+      <div class="od" style="justify-content:center;margin:18px 0 24px"><div class="od-line" style="max-width:80px"></div><div class="od-d"></div><div class="od-c"></div><div class="od-d"></div><div class="od-line" style="max-width:40px"></div></div>
+      <p class="sec-body" style="text-align:center;margin:0 auto;">xiMUN is a premier Model United Nations conference that challenges delegates to engage with the world's most pressing issues through rigorous debate, collaborative problem-solving, and the art of diplomacy.<br><br>Delegates step into the shoes of world leaders — crafting resolutions, building coalitions, and navigating the complexities of international relations in an atmosphere of intellectual rigour and mutual respect.</p>
     </div>
   </div>
 </section>
+
+<!-- SDG STRIP -->
+<div style="background:#ffffff!important;padding:22px 0;overflow:hidden;display:block;position:relative;z-index:20;width:100%;border-top:1px solid #ddd;border-bottom:1px solid #ddd;">
+  <div style="display:flex;width:max-content;animation:sdgMarquee 30s linear infinite;">
+    <div style="font-family:'Sorts Mill Goudy',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#111111;white-space:nowrap;display:flex;align-items:center;gap:32px;padding-right:32px;">SDG 4 · Quality Education <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 16 · Peace &amp; Justice <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 17 · Partnerships for the Goals <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 10 · Reduced Inequalities <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> Xi Model United Nations <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 4 · Quality Education <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 16 · Peace &amp; Justice <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 17 · Partnerships for the Goals <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 10 · Reduced Inequalities <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> Xi Model United Nations <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span></div>
+    <div aria-hidden="true" style="font-family:'Sorts Mill Goudy',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#111111;white-space:nowrap;display:flex;align-items:center;gap:32px;padding-right:32px;">SDG 4 · Quality Education <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 16 · Peace &amp; Justice <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 17 · Partnerships for the Goals <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 10 · Reduced Inequalities <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> Xi Model United Nations <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 4 · Quality Education <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 16 · Peace &amp; Justice <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 17 · Partnerships for the Goals <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> SDG 10 · Reduced Inequalities <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span> Xi Model United Nations <span style="width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;"></span></div>
+  </div>
+</div>
 
 <!-- PAST CONFERENCES -->
 <section id="past">
@@ -596,7 +707,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
 
               <!-- DETAILS panel -->
               <div class="ac-tab-content" id="ac1-details" style="display:none">
-                <div class="ac-detail-row"><span class="ac-dk">Date</span><span class="ac-dv">TBD, 2025</span></div>
+                <div class="ac-detail-row"><span class="ac-dk">Date</span><span class="ac-dv">November 28–29, 2025</span></div>
                 <div class="ac-detail-row"><span class="ac-dk">Venue</span><span class="ac-dv">Crowne Plaza AlKhobar</span></div>
                 <div class="ac-detail-row"><span class="ac-dk">Delegates</span><span class="ac-dv">70+</span></div>
                 <div class="ac-detail-row"><span class="ac-dk">Volunteers</span><span class="ac-dv">20+</span></div>
@@ -696,67 +807,55 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
       <h2 class="sec-h" style="text-align:center">Meet the Team</h2>
       <p class="sec-body" style="margin:0 auto">The dedicated individuals bringing xiMUN to life.</p>
     </div>
-    <!-- SECRETARIAT ROW: DSG · SG (center) · USG -->
-    <div class="team-secretariat reveal" style="margin-top:52px">
-      <div class="tm-card tm-card-sm">
-        <div class="tm-card-inner">
-          <div class="tm-card-front"><svg width="32" height="32" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg></div>
-          <div class="tm-card-back"><div class="tm-card-name">Abdul Rahman Khan</div><div class="tm-card-role">Deputy Secretary-General</div></div>
-        </div>
+
+    <!-- ROW 1: SECRETARIAT -->
+    <div class="team-card-grid reveal" style="margin-top:52px">
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front">DSG</div>
+        <div class="ac-comm-back"><em>Abdul Rahman Khan</em><span class="team-card-role">Deputy Secretary-General</span></div>
       </div>
-      <div class="tm-card tm-card-lg">
-        <div class="tm-card-inner">
-          <div class="tm-card-front"><svg width="44" height="44" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.35)" stroke-width="1.5" fill="none"/></svg></div>
-          <div class="tm-card-back"><div class="tm-card-name">Ayesha Ali</div><div class="tm-card-role">Secretary-General</div></div>
-        </div>
+      <div class="ac-comm-card team-card team-card-sg">
+        <div class="ac-comm-front" style="font-size:26px;">SG</div>
+        <div class="ac-comm-back"><em>Ayesha Ali</em><span class="team-card-role">Secretary-General</span></div>
       </div>
-      <div class="tm-card tm-card-sm">
-        <div class="tm-card-inner">
-          <div class="tm-card-front"><svg width="32" height="32" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg></div>
-          <div class="tm-card-back"><div class="tm-card-name">Moath Huzaim</div><div class="tm-card-role">Under Secretary-General</div></div>
-        </div>
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front">USG</div>
+        <div class="ac-comm-back"><em>Moath Huzaim</em><span class="team-card-role">Under Secretary-General</span></div>
       </div>
     </div>
 
-    <!-- DEPARTMENTS ROW -->
-    <div class="team-depts reveal" style="margin-top:12px">
-      <div class="tm-card tm-card-dept">
-        <div class="tm-card-inner">
-          <div class="tm-card-front tm-dept-label">Delegate Affairs<br>Department</div>
-          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
-        </div>
+    <!-- ROW 2: DEPARTMENTS 1–3 -->
+    <div class="team-card-grid reveal" style="margin-top:3px">
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front" style="font-size:14px;letter-spacing:.12em;">Delegate Affairs</div>
+        <div class="ac-comm-back"><em>TBD</em></div>
       </div>
-      <div class="tm-card tm-card-dept">
-        <div class="tm-card-inner">
-          <div class="tm-card-front tm-dept-label">Admins &amp; Security<br>Department</div>
-          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
-        </div>
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front" style="font-size:14px;letter-spacing:.12em;">Admins &amp; Security</div>
+        <div class="ac-comm-back"><em>TBD</em></div>
       </div>
-      <div class="tm-card tm-card-dept">
-        <div class="tm-card-inner">
-          <div class="tm-card-front tm-dept-label">PR &amp; Finance<br>Department</div>
-          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
-        </div>
-      </div>
-      <div class="tm-card tm-card-dept">
-        <div class="tm-card-inner">
-          <div class="tm-card-front tm-dept-label">Design<br>Department</div>
-          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
-        </div>
-      </div>
-      <div class="tm-card tm-card-dept">
-        <div class="tm-card-inner">
-          <div class="tm-card-front tm-dept-label">Editing<br>Department</div>
-          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
-        </div>
-      </div>
-      <div class="tm-card tm-card-dept">
-        <div class="tm-card-inner">
-          <div class="tm-card-front tm-dept-label">Chair Affairs<br>Department</div>
-          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
-        </div>
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front" style="font-size:14px;letter-spacing:.12em;">PR &amp; Finance</div>
+        <div class="ac-comm-back"><em>TBD</em></div>
       </div>
     </div>
+
+    <!-- ROW 3: DEPARTMENTS 4–6 -->
+    <div class="team-card-grid reveal" style="margin-top:3px">
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front" style="font-size:14px;letter-spacing:.12em;">Design</div>
+        <div class="ac-comm-back"><em>TBD</em></div>
+      </div>
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front" style="font-size:14px;letter-spacing:.12em;">Editing</div>
+        <div class="ac-comm-back"><em>TBD</em></div>
+      </div>
+      <div class="ac-comm-card team-card">
+        <div class="ac-comm-front" style="font-size:14px;letter-spacing:.12em;">Chair Affairs</div>
+        <div class="ac-comm-back"><em>TBD</em></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -780,7 +879,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
       <p class="sec-tag">Gallery</p>
       <h2 class="sec-h" style="font-size:clamp(40px,6vw,80px);line-height:1.0;">Our <em style="font-style:italic;color:var(--silver);">Gallery</em></h2>
       <p class="sec-body" style="margin-bottom:36px;">Every photo tells a story — debates, diplomacy, and the moments between.</p>
-      <a href="ximun-gallery.html" class="gal-view-btn">
+      <a href="gallery.html" class="gal-view-btn">
         <span>✦</span> View Full Gallery
       </a>
     </div>
@@ -848,17 +947,65 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
 
 <!-- FOOTER -->
 <footer>
-  <svg style="position:absolute;bottom:0;left:0;opacity:.2;pointer-events:none" width="160" height="140" viewBox="0 0 160 140" fill="none"><path d="M3,137 Q3,60 80,60 Q140,60 140,120 Q140,136 128,136 Q115,136 115,123 Q115,110 128,110 Q137,110 137,120" stroke="white" stroke-width="1" fill="none"/><circle cx="3" cy="137" r="2.5" fill="white"/></svg>
-  <svg style="position:absolute;bottom:0;right:0;opacity:.2;pointer-events:none;transform:scaleX(-1)" width="160" height="140" viewBox="0 0 160 140" fill="none"><path d="M3,137 Q3,60 80,60 Q140,60 140,120 Q140,136 128,136 Q115,136 115,123 Q115,110 128,110 Q137,110 137,120" stroke="white" stroke-width="1" fill="none"/><circle cx="3" cy="137" r="2.5" fill="white"/></svg>
-  <div class="footer-logo">xiMUN</div>
-  <ul class="footer-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#past">Past Conferences</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#registration">Register</a></li>
-  </ul>
-  <div class="footer-copy">© 2025 xiMUN. All rights reserved.</div>
+  <div class="footer-main">
+
+    <!-- LEFT: logo + tagline + SDG badges -->
+    <div class="footer-col-logo">
+      <div class="footer-logo">
+        <svg class="footer-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5" fill="none"/><polygon points="12,6 18,9.5 18,16.5 12,20 6,16.5 6,9.5" stroke="white" stroke-width="1" fill="none" opacity=".4"/></svg>
+        xiMUN
+      </div>
+      <p class="footer-tagline">Where the unseen<br>finds its voice.</p>
+      <div class="footer-sdg-badges">
+        <div class="sdg-badge sdg-4">
+          <span class="sdg-badge-num">4</span>
+          <span>Quality Education</span>
+        </div>
+        <div class="sdg-badge sdg-16">
+          <span class="sdg-badge-num">16</span>
+          <span>Peace &amp; Justice</span>
+        </div>
+        <div class="sdg-badge sdg-17">
+          <span class="sdg-badge-num">17</span>
+          <span>Partnerships</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COL 2: Conference -->
+    <div>
+      <div class="footer-col-title">Conference</div>
+      <ul class="footer-col-links">
+        <li><a href="#about">About xiMUN</a></li>
+        <li><a href="#past">Past Conferences</a></li>
+        <li><a href="#team">Meet the Team</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- COL 3: Get Involved -->
+    <div>
+      <div class="footer-col-title">Get Involved</div>
+      <ul class="footer-col-links">
+        <li><a href="#registration">Register Interest</a></li>
+      </ul>
+    </div>
+
+    <!-- COL 4: Follow Us -->
+    <div>
+      <div class="footer-col-title">Follow Us</div>
+      <ul class="footer-col-links">
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025–2026 xiMUN · All rights reserved · Al Khobar, Saudi Arabia</div>
+    <div class="footer-bottom-tag">Where the unseen finds its voice</div>
+  </div>
+
   <button id="tm-trigger" onclick="launchTimeMachine()" title="">✦</button>
 </footer>
 
@@ -1359,7 +1506,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
     <!-- MARQUEE -->
     <div class="geo-marquee-wrap">
-      <span class="geo-marquee">★ LAST UPDATED: OCTOBER 14, 2003 ★ &nbsp;&nbsp;&nbsp; THE CICADA SPEAKS IN FREQUENCIES WE CANNOT HEAR &nbsp;&nbsp;&nbsp; ★ XI IS NOT A LETTER. XI IS A COORDINATE. ★ &nbsp;&nbsp;&nbsp; UNHRC. UNESCO. UNSC. UNCTE. DISEC. ICC. — THE SIX SEALS &nbsp;&nbsp;&nbsp; ★ CROWNE PLAZA. ALKHOBAR. THE CONVERGENCE POINT. ★ &nbsp;&nbsp;&nbsp; 30+ NATIONS. 70+ DELEGATES. THE NUMBERS WERE ALWAYS THERE. &nbsp;&nbsp;&nbsp;</span>
+      <span class="geo-marquee">★ LAST UPDATED: OCTOBER 14, 2003 ★ &nbsp;&nbsp;&nbsp; THE XICADA SPEAKS IN FREQUENCIES WE CANNOT HEAR &nbsp;&nbsp;&nbsp; ★ XI IS NOT A LETTER. XI IS A COORDINATE. ★ &nbsp;&nbsp;&nbsp; UNHRC. UNESCO. UNSC. UNCTE. DISEC. ICC. — THE SIX SEALS &nbsp;&nbsp;&nbsp; ★ CROWNE PLAZA. ALKHOBAR. THE CONVERGENCE POINT. ★ &nbsp;&nbsp;&nbsp; 30+ NATIONS. 70+ DELEGATES. THE NUMBERS WERE ALWAYS THERE. &nbsp;&nbsp;&nbsp;</span>
     </div>
 
     <!-- NAV -->
@@ -1428,7 +1575,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
         <div class="geo-h2">GUESTBOOK 💬</div>
 
         <div class="geo-post">
-          <span class="geo-post-user">CicadaWatcher_88</span>
+          <span class="geo-post-user">XicadaWatcher_88</span>
           <span class="geo-post-date">Sep 12 2003 · 11:47pm</span>
           <div class="geo-post-body">found this site from the IRC drop. you're right about the coordinates. the frequency at <em>3301 Hz</em> is clearest on the 7th of each month. keep digging.</div>
         </div>
@@ -1559,7 +1706,7 @@ function startTimeMachine(){
     {msg:'INITIALIZING TEMPORAL MATRIX...',prog:8,dur:600},
     {msg:'SCANNING TIMELINE ANOMALIES...',prog:18,dur:500},
     {msg:'LOCKING DESTINATION: 2012...',prog:32,dur:700},
-    {msg:'CICADA FREQUENCY DETECTED...',prog:44,dur:400},
+    {msg:'XICADA FREQUENCY DETECTED...',prog:44,dur:400},
     {msg:'SIGNAL: 3301 Hz CONFIRMED...',prog:55,dur:500},
     {msg:'CROSSING EVENT HORIZON...',prog:66,dur:600},
     {msg:'LOCKING DESTINATION: 2003...',prog:76,dur:500},
@@ -1638,7 +1785,7 @@ function startGlitchTransition(){
   const termLines=[
     '> TEMPORAL LOCK ACQUIRED',
     '> YEAR: 2012',
-    '> CICADA 3301 TRANSMISSION INTERCEPTED',
+    '> XICADA 3301 TRANSMISSION INTERCEPTED',
     '> DECRYPTING...',
     '> ...COORDINATES MATCH: 26N 50E',
     '> SIGNAL PREDATES EXPECTED ORIGIN',
