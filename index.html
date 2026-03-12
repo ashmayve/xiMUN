@@ -497,19 +497,78 @@ footer{
 .reveal.in{opacity:1;transform:translateY(0);}
 
 @media(max-width:900px){
-  nav{padding:18px 20px;}
+  /* NAV */
+  nav{padding:16px 20px;}
   .nav-links{display:none;}
+
+  /* HERO */
   .sec-inner{padding:72px 20px;}
+  .hero-inner{padding:0 20px;}
+  .hero-meta{flex-direction:column;gap:0;}
+  .hm-item{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.1);padding:10px 0;}
+  .hero-btns{flex-direction:column;align-items:center;gap:12px;}
+  .btn-p,.btn-s{width:100%;max-width:320px;text-align:center;}
+
+  /* ABOUT */
   .about-grid,.reg-grid{grid-template-columns:1fr;gap:44px;}
-  .committees-grid{grid-template-columns:1fr;}
+
+  /* PAST CONFERENCES */
+  .ac-comm-grid{grid-template-columns:1fr 1fr!important;}
+  .ac-tabs{flex-wrap:wrap;gap:6px;}
+  .ac-tab{font-size:10px;padding:7px 12px;}
+  .ac-trigger{flex-direction:column;align-items:flex-start;gap:8px;}
+  .ac-right{width:100%;}
+
+  /* TEAM */
+  .team-card-grid{grid-template-columns:1fr 1fr 1fr;}
+  .team-card{height:110px;}
+
+  /* GALLERY */
   .gal-grid{grid-template-columns:1fr 1fr;}
   .gi:nth-child(1),.gi:nth-child(4){grid-column:span 1;min-height:unset;}
+  .gal-preview-header{flex-direction:column;}
+  .gal-preview-left,.gal-preview-right{width:100%;}
+
+  /* FOOTER */
   footer{flex-direction:column;gap:20px;text-align:center;}
   .fr{grid-template-columns:1fr;}
-  .sch-item{grid-template-columns:90px 1fr;}
   .badge{display:none;}
-  .hero-meta{flex-direction:column;}
-  .hm-item{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.1);}
+  .committees-grid{grid-template-columns:1fr;}
+}
+
+@media(hover:none){
+  #cur{display:none!important;}
+  body,a,button{cursor:auto!important;}
+}
+  /* HERO */
+  .sec-h{font-size:clamp(32px,10vw,52px)!important;}
+  .hero-btns{flex-direction:column;align-items:stretch;padding:0 20px;}
+
+  /* PAST CONFERENCES */
+  .ac-comm-grid{grid-template-columns:1fr!important;}
+  .ac-detail-row{flex-direction:column;gap:4px;}
+
+  /* TEAM — stack to 1 col on very small */
+  .team-card-grid{grid-template-columns:1fr 1fr 1fr;}
+  .team-card{height:90px;}
+  .ac-comm-front{font-size:11px!important;letter-spacing:.06em!important;}
+
+  /* REGISTRATION */
+  .reg-grid{grid-template-columns:1fr;}
+
+  /* SDG STRIP */
+  .sdg-strip-text,.sdg-strip{font-size:11px;}
+
+  /* FOOTER */
+  .footer-main{grid-template-columns:1fr!important;}
+  .footer-col-logo{grid-column:span 1!important;}
+
+  /* TIME MACHINE BUTTON */
+  #tm-trigger{bottom:16px;right:16px;width:44px;height:44px;font-size:16px;}
+
+  /* GENERAL */
+  .sec-inner{padding:56px 16px;}
+  .sec-body{font-size:16px!important;}
 }
 
 
@@ -1118,17 +1177,24 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 <style>
 /* HIDDEN TRIGGER */
 #tm-trigger{
-  position:fixed;bottom:22px;right:32px;
-  background:none;border:none;cursor:pointer;
-  font-size:14px;color:rgba(255,255,255,.07);
-  padding:12px;z-index:100;
-  transition:color .6s,text-shadow .6s;
+  position:fixed;bottom:24px;right:24px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;color:rgba(255,255,255,.35);
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  transition:color .4s,background .4s,border-color .4s,text-shadow .4s;
   font-family:'Sorts Mill Goudy',serif;
-  letter-spacing:.1em;
+  -webkit-tap-highlight-color:transparent;
 }
-#tm-trigger:hover{
-  color:rgba(255,255,255,.28);
-  text-shadow:0 0 10px rgba(255,255,255,.15);
+#tm-trigger:hover,#tm-trigger:active{
+  color:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.45);
+  text-shadow:0 0 16px rgba(255,255,255,.5);
 }
 
 /* ── TIME MACHINE POPUP ── */
