@@ -15,7 +15,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--black);color:var(--light);font-family:'Sorts Mill Goudy',serif;overflow-x:hidden;cursor:none;}
 
 /* CURSOR — glowing star */
-#cur{position:fixed;width:26px;height:26px;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);animation:starSpin 7s linear infinite;}
+#cur{position:fixed;width:26px;height:26px;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);animation:starSpin 7s linear infinite;}
 #cur svg{filter:drop-shadow(0 0 5px rgba(255,255,255,.95)) drop-shadow(0 0 12px rgba(255,255,255,.6)) drop-shadow(0 0 24px rgba(255,255,255,.25));}
 #cur-ring{display:none;}
 @keyframes starSpin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
@@ -518,7 +518,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
       <div class="hm-item"><div class="hm-label">Days</div><div class="hm-value">2</div></div>
     </div>
     <div class="hero-btns">
-      <a href="#registration" class="btn-p">Apply Now</a>
+      <a href="#registration" class="btn-p">Register Interest</a>
       <a href="#about" class="btn-s">Learn More</a>
     </div>
   </div>
@@ -574,7 +574,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
           </div>
         </div>
         <div class="ac-right">
-          <span class="ac-meta-pill">150+ attendees</span>
           <div class="ac-chevron">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6.5L9 11.5L14 6.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
           </div>
@@ -605,21 +604,17 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
                 <div class="ac-detail-row"><span class="ac-dk">Nations</span><span class="ac-dv">30+</span></div>
               </div>
 
-              <!-- SCHEDULE panel -->
-              <div class="ac-tab-content" id="ac1-schedule" style="display:none">
-                <div class="ac-sched-item"><span class="ac-time">Day 1 · 09:00</span><span class="ac-event">Opening Ceremony</span></div>
-                <div class="ac-sched-item"><span class="ac-time">Day 1 · 11:00</span><span class="ac-event">Committee Sessions I &amp; II</span></div>
-                <div class="ac-sched-item"><span class="ac-time">Day 1 · 19:00</span><span class="ac-event">Welcome Dinner &amp; Social</span></div>
-                <div class="ac-sched-item"><span class="ac-time">Day 2 · 09:00</span><span class="ac-event">Committee Sessions III &amp; IV</span></div>
-                <div class="ac-sched-item"><span class="ac-time">Day 2 · 16:00</span><span class="ac-event">Closing Ceremony &amp; Awards</span></div>
-              </div>
 
-              <!-- AWARDS panel -->
+
+              <!-- ACHIEVEMENTS panel -->
               <div class="ac-tab-content" id="ac1-awards" style="display:none">
-                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">Best Delegate</div><div class="ac-award-who">TBD</div></div></div>
-                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">Outstanding Delegate</div><div class="ac-award-who">TBD</div></div></div>
-                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">Best Position Paper</div><div class="ac-award-who">TBD</div></div></div>
-                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">Best Small Delegation</div><div class="ac-award-who">TBD</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Resolutions Written</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Best Delegate Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Outstanding Delegate Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Honorable Mention Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">1 Best Press Award</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">2 Best Admin Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">2 Best Chair Awards</div></div></div>
               </div>
 
               <!-- COMMITTEES panel -->
@@ -627,27 +622,27 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
                 <div class="ac-comm-grid">
                   <div class="ac-comm-card">
                     <div class="ac-comm-front">UNHRC</div>
-                    <div class="ac-comm-back"><em>United Nations Human Rights Council</em></div>
+                    <div class="ac-comm-back"><em>Behind the Veil of Asylum: Justice Denied in the Name of Rights</em></div>
                   </div>
                   <div class="ac-comm-card">
                     <div class="ac-comm-front">UNESCO</div>
-                    <div class="ac-comm-back"><em>United Nations Educational, Scientific and Cultural Organization</em></div>
+                    <div class="ac-comm-back"><em>The Lost Wonder: Who Owns the Hanging Gardens of Babylon?</em></div>
                   </div>
                   <div class="ac-comm-card">
                     <div class="ac-comm-front">UNSC</div>
-                    <div class="ac-comm-back"><em>United Nations Security Council</em></div>
+                    <div class="ac-comm-back"><em>The Fall of the Romanovs: Power, Revolution, and Responsibility</em></div>
                   </div>
                   <div class="ac-comm-card">
                     <div class="ac-comm-front">UNCTE</div>
-                    <div class="ac-comm-back"><em>United Nations Counter-Terrorism Executive</em></div>
+                    <div class="ac-comm-back"><em>Five Nights at Freddy's: The Regulation and Ethical Oversight of Synthetic Lifeforms</em></div>
                   </div>
                   <div class="ac-comm-card">
                     <div class="ac-comm-front">DISEC</div>
-                    <div class="ac-comm-back"><em>Disarmament &amp; International Security Committee</em></div>
+                    <div class="ac-comm-back"><em>The Dark Web and Algorithmic Radicalization: A Threat to Global Security</em></div>
                   </div>
                   <div class="ac-comm-card">
                     <div class="ac-comm-front">ICC</div>
-                    <div class="ac-comm-back"><em>International Criminal Court</em></div>
+                    <div class="ac-comm-back"><em>The Trial of Light Yagami: Mass Murder or Divine Justice?</em></div>
                   </div>
                 </div>
               </div>
@@ -659,14 +654,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
               <button class="ac-tab-btn" onclick="switchAcTab('ac1','details',this)">
                 <span class="ac-tab-icon">→</span> Details
               </button>
-              <button class="ac-tab-btn" onclick="switchAcTab('ac1','schedule',this)">
-                <span class="ac-tab-icon">→</span> Schedule
-              </button>
               <button class="ac-tab-btn" onclick="switchAcTab('ac1','committees',this)">
                 <span class="ac-tab-icon">→</span> Committees
               </button>
-              <button class="ac-tab-btn" onclick="switchAcTab('ac1','awards',this)">
-                <span class="ac-tab-icon">→</span> Awards
+              <button class="ac-tab-btn" onclick="switchAcTab('ac1','achievements',this)">
+                <span class="ac-tab-icon">→</span> Achievements
               </button>
             </div>
 
@@ -701,57 +693,68 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
   <div class="sec-inner">
     <div class="reveal" style="text-align:center">
       <p class="sec-tag" style="justify-content:center">The Team</p>
-      <h2 class="sec-h" style="text-align:center">Meet the Secretariat</h2>
+      <h2 class="sec-h" style="text-align:center">Meet the Team</h2>
       <p class="sec-body" style="margin:0 auto">The dedicated individuals bringing xiMUN to life.</p>
     </div>
-    <div class="team-grid" style="margin-top:52px">
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+    <!-- SECRETARIAT ROW: DSG · SG (center) · USG -->
+    <div class="team-secretariat reveal" style="margin-top:52px">
+      <div class="tm-card tm-card-sm">
+        <div class="tm-card-inner">
+          <div class="tm-card-front"><svg width="32" height="32" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg></div>
+          <div class="tm-card-back"><div class="tm-card-name">Abdul Rahman Khan</div><div class="tm-card-role">Deputy Secretary-General</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Secretary-General</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+      <div class="tm-card tm-card-lg">
+        <div class="tm-card-inner">
+          <div class="tm-card-front"><svg width="44" height="44" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.35)" stroke-width="1.5" fill="none"/></svg></div>
+          <div class="tm-card-back"><div class="tm-card-name">Ayesha Ali</div><div class="tm-card-role">Secretary-General</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Deputy Secretary-General</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+      <div class="tm-card tm-card-sm">
+        <div class="tm-card-inner">
+          <div class="tm-card-front"><svg width="32" height="32" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg></div>
+          <div class="tm-card-back"><div class="tm-card-name">Moath Huzaim</div><div class="tm-card-role">Under Secretary-General</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Director of Committees</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+    </div>
+
+    <!-- DEPARTMENTS ROW -->
+    <div class="team-depts reveal" style="margin-top:12px">
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Delegate Affairs<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Head of Logistics</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Admins &amp; Security<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Director of Communications</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">PR &amp; Finance<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Head of Delegate Affairs</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Design<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Finance Director</div></div>
       </div>
-      <div class="tm reveal">
-        <div class="tm-photo-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="white" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="white" stroke-width="1.5" fill="none"/></svg>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Editing<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
         </div>
-        <div class="tm-info"><div class="tm-name">Name TBD</div><div class="tm-role">Sponsorship &amp; Partnerships</div></div>
+      </div>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Chair Affairs<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -826,29 +829,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
         <svg width="200" height="20" viewBox="0 0 200 20" fill="none"><path d="M0,10 Q25,18 50,10 Q75,2 100,10 Q125,18 150,10 Q175,2 200,10" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/><circle cx="100" cy="10" r="3" fill="rgba(255,255,255,0.3)"/></svg>
       </div>
     </div>
-    <div class="reg-grid">
-      <div class="reveal">
-        <p class="sec-body" style="margin-bottom:32px">Interested in attending xiMUN? Let us know and we'll keep you updated with the latest news, committee announcements, and registration details as they're confirmed.</p>
-        <div class="tier-stack">
-          <div class="tier"><div><div class="tier-n">Single Delegate</div><div class="tier-d">Individual registration</div></div><div class="tier-price">$XX</div></div>
-          <div class="tier feat"><div><div class="tier-n">School Delegation</div><div class="tier-d">5+ delegates from one institution</div></div><div class="tier-price">$XX</div></div>
-          <div class="tier"><div><div class="tier-n">Observer</div><div class="tier-d">Non-voting conference pass</div></div><div class="tier-price">$XX</div></div>
-        </div>
+    <div class="reveal" style="max-width:860px;margin:0 auto;">
+      <p class="sec-body" style="text-align:center;margin-bottom:40px;">Fill out the form below and we'll keep you updated with committee announcements, schedules, and all registration details as they're confirmed.</p>
+      <div style="border:1px solid rgba(255,255,255,.08);overflow:hidden;height:420px;overflow-y:auto;">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeFnHK0iF9Se4q52RBF2mt-lRLneDump6ad2dAgKVGUKL0yCg/viewform?embedded=true"
+          width="100%"
+          height="820"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          style="display:block;background:#fff;"
+        >Loading form…</iframe>
       </div>
-      <form class="reg-form reveal" onsubmit="handleReg(event)">
-        <div class="fr">
-          <div class="fg"><label>First Name</label><input type="text" placeholder="Jane"></div>
-          <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith"></div>
-        </div>
-        <div class="fg"><label>Email Address</label><input type="email" placeholder="jane@school.edu"></div>
-        <div class="fg"><label>Institution / School</label><input type="text" placeholder="Your school or university"></div>
-        <div class="fr">
-          <div class="fg"><label>Role</label><select><option value="">Select…</option><option>Delegate</option><option>Chair / Dais</option><option>Press Corps</option><option>Observer</option></select></div>
-          <div class="fg"><label>Experience Level</label><select><option value="">Select…</option><option>First time</option><option>1–2 conferences</option><option>3–5 conferences</option><option>5+ conferences</option></select></div>
-        </div>
-        <div class="fg"><label>Additional Notes</label><textarea placeholder="Dietary needs, accessibility requirements, or questions…"></textarea></div>
-        <button type="submit" class="submit-btn">Register Interest</button>
-      </form>
     </div>
   </div>
 </section>
@@ -866,6 +859,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);paddin
     <li><a href="#registration">Register</a></li>
   </ul>
   <div class="footer-copy">© 2025 xiMUN. All rights reserved.</div>
+  <button id="tm-trigger" onclick="launchTimeMachine()" title="">✦</button>
 </footer>
 
 <script>
@@ -969,6 +963,763 @@ function handleReg(e){
 // SCROLL REVEAL
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<!-- ════════════════════════════════════════
+     TIME MACHINE SYSTEM
+════════════════════════════════════════ -->
+<style>
+/* HIDDEN TRIGGER */
+#tm-trigger{
+  position:fixed;bottom:22px;right:32px;
+  background:none;border:none;cursor:pointer;
+  font-size:14px;color:rgba(255,255,255,.07);
+  padding:12px;z-index:100;
+  transition:color .6s,text-shadow .6s;
+  font-family:'Sorts Mill Goudy',serif;
+  letter-spacing:.1em;
+}
+#tm-trigger:hover{
+  color:rgba(255,255,255,.28);
+  text-shadow:0 0 10px rgba(255,255,255,.15);
+}
+
+/* ── TIME MACHINE POPUP ── */
+#tm-popup{
+  position:fixed;inset:0;z-index:10000;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.95);
+}
+#tm-popup.show{display:flex;}
+#tm-machine{
+  width:min(540px,92vw);
+  border:2px solid #333;
+  background:#080808;
+  font-family:'Share Tech Mono',monospace;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 0 1px #222, 0 0 80px rgba(255,60,0,.08);
+}
+/* machine header */
+#tm-machine::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 4px);
+  pointer-events:none;z-index:1;
+}
+.tm-header{
+  background:linear-gradient(to bottom,#1a1a1a,#111);
+  border-bottom:1px solid #2a2a2a;
+  padding:10px 14px;display:flex;align-items:center;gap:10px;
+}
+.tm-header-dot{width:10px;height:10px;border-radius:50%;}
+.tm-header-dot.r{background:#cc3333;}
+.tm-header-dot.y{background:#cc9900;}
+.tm-header-dot.g{background:#33aa33;}
+.tm-header-title{font-size:11px;color:#666;letter-spacing:.2em;flex:1;text-align:center;}
+.tm-body{padding:32px 36px;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.tm-label{font-size:10px;letter-spacing:.3em;color:#444;text-transform:uppercase;}
+
+/* YEAR DISPLAY */
+#tm-year-display{
+  font-family:'VT323',monospace;font-size:96px;
+  color:#ff4400;line-height:1;
+  text-shadow:0 0 20px rgba(255,60,0,.8), 0 0 60px rgba(255,60,0,.3);
+  letter-spacing:.1em;
+  transition:color .1s;
+  min-width:280px;text-align:center;
+}
+#tm-year-display.glitching{animation:yearGlitch .08s steps(1) infinite;}
+@keyframes yearGlitch{
+  0%{transform:translate(0);color:#ff4400;}
+  20%{transform:translate(-3px,1px);color:#00ffaa;filter:blur(1px);}
+  40%{transform:translate(3px,-1px);color:#ff00ff;}
+  60%{transform:translate(-1px,2px);color:#ffff00;}
+  80%{transform:translate(2px,-2px);color:#ff4400;}
+  100%{transform:translate(0);color:#ff4400;}
+}
+
+/* PROGRESS / STATUS */
+.tm-progress-wrap{width:100%;height:6px;background:#111;border:1px solid #222;}
+.tm-progress-bar{height:100%;width:0%;background:linear-gradient(to right,#ff4400,#ff8800);transition:width .1s linear;box-shadow:0 0 8px rgba(255,80,0,.6);}
+#tm-status{font-size:11px;color:#ff6600;letter-spacing:.15em;min-height:16px;text-align:center;}
+#tm-status.blink{animation:statusBlink .5s step-end infinite;}
+@keyframes statusBlink{50%{opacity:0;}}
+
+.tm-warning{
+  font-size:10px;color:#333;letter-spacing:.12em;line-height:1.7;text-align:center;max-width:340px;
+  border-top:1px solid #1a1a1a;padding-top:16px;width:100%;
+}
+.tm-warning span{color:#ff4400;}
+
+#tm-launch-btn{
+  background:none;border:1px solid #ff4400;color:#ff4400;
+  font-family:'VT323',monospace;font-size:20px;padding:10px 40px;
+  cursor:pointer;letter-spacing:.2em;
+  box-shadow:0 0 12px rgba(255,60,0,.2);
+  transition:all .2s;
+}
+#tm-launch-btn:hover{background:rgba(255,60,0,.1);box-shadow:0 0 24px rgba(255,60,0,.4);}
+#tm-close{
+  position:absolute;top:10px;right:14px;background:none;border:none;
+  color:#333;font-size:16px;cursor:pointer;font-family:'Sorts Mill Goudy',serif;
+  z-index:2;
+}
+#tm-close:hover{color:#888;}
+
+/* ── GLITCH TRANSITION OVERLAY ── */
+#tm-glitch-overlay{
+  position:fixed;inset:0;z-index:20000;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  background:#000;
+  font-family:'Share Tech Mono',monospace;
+  overflow:hidden;
+}
+#tm-glitch-overlay.show{display:flex;}
+#tg-year{
+  font-family:'VT323',monospace;font-size:180px;color:#ff4400;
+  text-shadow:0 0 40px rgba(255,60,0,.9);
+  position:absolute;
+  animation:none;
+}
+#tg-noise{position:absolute;inset:0;pointer-events:none;}
+#tg-scanline{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:rgba(255,255,255,.15);
+  animation:scanlineSweep .6s linear infinite;
+}
+@keyframes scanlineSweep{from{top:-4px;}to{top:100vh;}}
+.tg-terminal-line{
+  font-size:12px;color:#00ff41;letter-spacing:.1em;
+  animation:termFlicker .12s step-end 3;
+  margin:2px 0;
+}
+#tg-lines{position:absolute;bottom:60px;left:60px;right:60px;}
+
+/* ── GEOCITIES PAGE ── */
+#geo-page{
+  position:fixed;inset:0;z-index:15000;
+  cursor:none;
+  display:none;overflow-y:auto;overflow-x:hidden;
+  background:#000080 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAHklEQVQoU2NkYGD4z8BQDwRMQxkYgQBiNIMBAABHAAH/7MB8AAAAAElFTkSuQmCC") repeat;
+  font-family:'Courier New',monospace;
+}
+#geo-page.show{display:block;}
+
+.geo-wrap{
+  max-width:780px;margin:0 auto;padding:12px;
+  background:#c0c0c0;
+  border:3px outset #ffffff;
+  margin-top:8px;margin-bottom:8px;
+}
+
+/* GEO TITLE BAR */
+.geo-titlebar{
+  background:linear-gradient(to right,#000080,#1084d0);
+  color:#fff;padding:4px 8px;font-size:12px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:'Courier New',monospace;
+  border:2px outset #fff;
+  margin-bottom:2px;
+}
+.geo-tb-btns{display:flex;gap:2px;}
+.geo-tb-btn{
+  background:#c0c0c0;border:2px outset #fff;
+  width:16px;height:14px;font-size:9px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:#000;
+}
+
+/* GEO HEADER */
+.geo-header{
+  background:#000;
+  text-align:center;padding:16px 8px;
+  border:3px inset #808080;
+}
+.geo-site-title{
+  font-family:'Comic Sans MS','Chalkboard SE',cursive;
+  font-size:clamp(22px,5vw,38px);
+  color:#ffff00;
+  text-shadow:3px 3px #ff0000, -1px -1px #ff00ff;
+  animation:geoBlink 1s step-end infinite;
+  letter-spacing:.05em;
+  display:block;
+}
+@keyframes geoBlink{50%{text-shadow:3px 3px #00ffff,-1px -1px #ff00ff;}}
+.geo-subtitle{
+  font-family:'Comic Sans MS',cursive;
+  font-size:13px;color:#00ff00;
+  animation:subBlink .7s step-end infinite;
+}
+@keyframes subBlink{50%{opacity:0;}}
+.geo-visitor{
+  font-size:10px;color:#ff8800;font-family:'Courier New',monospace;
+  margin-top:8px;
+}
+.geo-stars{font-size:18px;animation:starSpin2 3s linear infinite;display:inline-block;}
+@keyframes starSpin2{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* GEO NAV BAR */
+.geo-nav{
+  background:#000080;
+  display:flex;flex-wrap:wrap;gap:2px;padding:4px;
+  border:2px inset #808080;margin:4px 0;
+  justify-content:center;
+}
+.geo-nav a{
+  background:#808080;border:2px outset #fff;
+  padding:3px 10px;font-size:11px;color:#ffff00;
+  text-decoration:none;font-family:'Courier New',monospace;
+  font-weight:bold;white-space:nowrap;
+}
+.geo-nav a:hover{background:#c0c0c0;color:#000080;}
+
+/* GEO MAIN LAYOUT */
+.geo-layout{display:grid;grid-template-columns:1fr 200px;gap:6px;margin-top:6px;}
+.geo-main-col{background:#ffffff;border:3px inset #808080;padding:12px;}
+.geo-side-col{display:flex;flex-direction:column;gap:6px;}
+
+/* GEO SECTION BOX */
+.geo-box{
+  background:#c0c0c0;border:3px outset #fff;
+  border-bottom-color:#808080;border-right-color:#808080;
+  overflow:hidden;
+}
+.geo-box-title{
+  background:linear-gradient(to right,#000080,#1084d0);
+  color:#fff;padding:3px 8px;font-size:11px;
+  font-family:'Courier New',monospace;font-weight:bold;
+  letter-spacing:.05em;
+}
+.geo-box-body{padding:8px;font-size:12px;color:#000;}
+
+/* GEO TEXT STYLES */
+.geo-h2{
+  font-family:'Comic Sans MS',cursive;font-size:18px;
+  color:#ff0000;text-decoration:underline;
+  margin-bottom:8px;
+}
+.geo-p{font-size:12px;line-height:1.6;color:#000000;margin-bottom:8px;}
+.geo-blink{animation:geoBlink2 1s step-end infinite;}
+@keyframes geoBlink2{50%{visibility:hidden;}}
+.geo-marquee-wrap{
+  background:#000;border:2px inset #808080;
+  padding:4px 0;overflow:hidden;white-space:nowrap;
+  margin:8px 0;
+}
+.geo-marquee{
+  display:inline-block;
+  animation:geoScroll 18s linear infinite;
+  font-size:13px;font-weight:bold;
+  font-family:'Comic Sans MS',cursive;
+  color:#00ffff;
+}
+@keyframes geoScroll{from{transform:translateX(100vw);}to{transform:translateX(-100%);};}
+.geo-hr{border:none;border-top:2px solid #808080;border-bottom:2px solid #fff;margin:8px 0;}
+.geo-img-placeholder{
+  background:#008080;border:3px inset #808080;
+  width:100%;height:100px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#ffff00;text-align:center;
+  font-family:'Courier New',monospace;
+  margin:8px 0;
+}
+
+/* GUESTBOOK / FORUM */
+.geo-post{
+  background:#fff;border:2px inset #808080;
+  padding:8px;margin-bottom:6px;font-size:11px;
+}
+.geo-post-user{color:#000080;font-weight:bold;font-family:'Courier New',monospace;}
+.geo-post-date{color:#808080;font-size:10px;float:right;}
+.geo-post-body{color:#000;margin-top:4px;line-height:1.5;}
+.geo-post-body em{color:#cc0000;}
+.geo-post-body .geo-code{
+  background:#000;color:#00ff00;
+  font-family:'Courier New',monospace;
+  padding:2px 6px;font-size:11px;display:inline-block;margin:2px 0;
+}
+
+/* SECRET CODE */
+#geo-secret{
+  background:#000;border:3px inset #808080;
+  padding:12px;text-align:center;margin:12px 0;
+}
+#geo-secret p{color:#333;font-size:10px;font-family:'Courier New',monospace;}
+#geo-secret-reveal{
+  color:#000;background:#000;
+  font-family:'Courier New',monospace;font-size:13px;font-weight:bold;
+  letter-spacing:.2em;cursor:pointer;border:none;padding:4px 8px;
+  transition:color .3s;display:block;margin:8px auto;
+}
+#geo-secret-reveal:hover{color:#ff0000 !important;}
+#geo-secret-reveal.revealed{color:#ff0000 !important;background:#000;}
+
+/* SIDE WIDGETS */
+.geo-counter{
+  background:#000;color:#00ff00;
+  font-family:'Courier New',monospace;
+  padding:8px;text-align:center;font-size:20px;
+  border:3px inset #808080;letter-spacing:.2em;
+}
+.geo-counter-label{font-size:9px;color:#808080;display:block;margin-top:4px;letter-spacing:.1em;}
+.geo-webring{background:#fff;border:3px inset #808080;padding:8px;text-align:center;font-size:10px;color:#000080;}
+.geo-webring a{color:#ff0000;font-weight:bold;text-decoration:underline;}
+.geo-award{
+  background:#ffff00;border:3px outset #fff;
+  padding:6px;text-align:center;font-size:10px;
+  font-family:'Comic Sans MS',cursive;font-weight:bold;color:#000080;
+}
+.geo-construction{
+  text-align:center;padding:8px;background:#ffff00;
+  border:2px solid #000;font-size:11px;font-family:'Comic Sans MS',cursive;
+  color:#000;
+}
+.geo-email-btn{
+  display:block;background:#000080;color:#ffff00;
+  border:2px outset #fff;padding:6px;text-align:center;
+  text-decoration:none;font-family:'Courier New',monospace;font-size:11px;
+  font-weight:bold;margin:4px 0;cursor:pointer;
+}
+.geo-email-btn:hover{background:#0000cc;}
+
+/* CLOSE BUTTON for geo page */
+#geo-close-btn{
+  position:fixed;top:12px;right:12px;z-index:16000;
+  background:#cc0000;border:3px outset #ff6666;color:#fff;
+  font-family:'Courier New',monospace;font-size:13px;font-weight:bold;
+  padding:6px 14px;cursor:pointer;
+}
+#geo-close-btn:hover{background:#ff0000;}
+#geo-close-btn:active{border-style:inset;}
+
+/* ANIMATED BG STARS */
+.geo-bg-star{
+  position:fixed;pointer-events:none;z-index:14999;
+  animation:bgStarFloat linear infinite;font-size:14px;opacity:.6;
+}
+@keyframes bgStarFloat{from{transform:translateY(100vh) rotate(0deg);opacity:.8;}to{transform:translateY(-10vh) rotate(720deg);opacity:0;}}
+</style>
+
+<!-- ── TIME MACHINE POPUP ── -->
+<div id="tm-popup">
+  <div id="tm-machine">
+    <div class="tm-header">
+      <div class="tm-header-dot r"></div>
+      <div class="tm-header-dot y"></div>
+      <div class="tm-header-dot g"></div>
+      <div class="tm-header-title">TEMPORAL NAVIGATION UNIT v0.03</div>
+    </div>
+    <div class="tm-body">
+      <div class="tm-label">DESTINATION YEAR</div>
+      <div id="tm-year-display">2026</div>
+      <div class="tm-progress-wrap"><div class="tm-progress-bar" id="tm-progress"></div></div>
+      <div id="tm-status">AWAITING ACTIVATION...</div>
+      <button id="tm-launch-btn" onclick="startTimeMachine()">INITIATE SEQUENCE</button>
+      <div class="tm-warning">
+        WARNING: temporal displacement may cause<br>
+        <span>REALITY CORRUPTION</span> · proceed with caution<br>
+        <br>destination node: <span>XI-ARCHIVE-2003</span>
+      </div>
+    </div>
+    <button id="tm-close" onclick="closeTimeMachine()">✕</button>
+  </div>
+</div>
+
+<!-- ── GLITCH TRANSITION OVERLAY ── -->
+<div id="tm-glitch-overlay">
+  <canvas id="tg-noise"></canvas>
+  <div id="tg-scanline"></div>
+  <div id="tg-year">2026</div>
+  <div id="tg-lines"></div>
+</div>
+
+<!-- ── GEOCITIES PAGE ── -->
+<div id="geo-page">
+  <button id="geo-close-btn" onclick="closeGeoPage()">✕ RETURN TO PRESENT</button>
+
+  <div class="geo-wrap">
+    <!-- TITLE BAR -->
+    <div class="geo-titlebar">
+      <span>🌐 xI_watcher's Homepage — Netscape Navigator 4.0</span>
+      <div class="geo-tb-btns">
+        <div class="geo-tb-btn">_</div>
+        <div class="geo-tb-btn">□</div>
+        <div class="geo-tb-btn">✕</div>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="geo-header">
+      <span class="geo-stars">★</span>
+      <span class="geo-site-title">⚠ XI_WATCHER'S TRUTH PAGE ⚠</span>
+      <span class="geo-stars">★</span>
+      <br>
+      <span class="geo-subtitle">★★ THEY DON'T WANT YOU TO KNOW THIS ★★</span>
+      <div class="geo-visitor">[ VISITOR COUNT: <span id="geo-counter-num">000031337</span> ] — YOU ARE BEING WATCHED</div>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="geo-marquee-wrap">
+      <span class="geo-marquee">★ LAST UPDATED: OCTOBER 14, 2003 ★ &nbsp;&nbsp;&nbsp; THE CICADA SPEAKS IN FREQUENCIES WE CANNOT HEAR &nbsp;&nbsp;&nbsp; ★ XI IS NOT A LETTER. XI IS A COORDINATE. ★ &nbsp;&nbsp;&nbsp; UNHRC. UNESCO. UNSC. UNCTE. DISEC. ICC. — THE SIX SEALS &nbsp;&nbsp;&nbsp; ★ CROWNE PLAZA. ALKHOBAR. THE CONVERGENCE POINT. ★ &nbsp;&nbsp;&nbsp; 30+ NATIONS. 70+ DELEGATES. THE NUMBERS WERE ALWAYS THERE. &nbsp;&nbsp;&nbsp;</span>
+    </div>
+
+    <!-- NAV -->
+    <div class="geo-nav">
+      <a href="#">HOME</a>
+      <a href="#">THE EVIDENCE</a>
+      <a href="#">THE SIX SEALS</a>
+      <a href="#">CONTACT XI_WATCHER</a>
+      <a href="#">GUESTBOOK (12)</a>
+      <a href="#">LINKS</a>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="geo-layout">
+
+      <!-- MAIN COLUMN -->
+      <div class="geo-main-col">
+
+        <div class="geo-h2">⚠ THEY ARE COMING ⚠</div>
+        <div class="geo-p">If you are reading this, you have <em>found me</em>. My name doesn't matter. What matters is what I have uncovered. Since 1998 I have been monitoring encrypted transmissions on IRC channels — dead drops, cipher keys, coordinates buried in USENET posts. In September 2003 I finally understood what all of it was pointing toward.</div>
+        <div class="geo-p">A gathering. Not yet. But it <em>will</em> happen. In a city by the gulf. In a building of crowns. <span class="geo-blink"><strong>They call it xiMUN.</strong></span></div>
+        <hr class="geo-hr">
+
+        <div class="geo-h2">THE SIX SEALS 🔒</div>
+        <div class="geo-p">Every great convergence has its chambers. I have decoded the SIX from the frequency transmissions. Each one debates a piece of the puzzle:</div>
+
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL I — UNHRC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"Behind the Veil of Asylum"</em> — they will debate justice denied. The hand that reaches but cannot grasp. <strong>I have seen this symbol before.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL II — UNESCO</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Lost Wonder"</em> — Babylon. The hanging gardens. Ownership of history. <strong>Who controls the past controls the future.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL III — UNSC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Fall of the Romanovs"</em> — power. revolution. the throne always falls. <strong>history does not repeat. it echoes.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL IV — UNCTE</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"Five Nights"</em> — synthetic lifeforms. ethical oversight. <strong>THE MACHINE THAT WATCHES.</strong> I know what this means.</div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL V — DISEC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Dark Web"</em> — algorithmic radicalization. they have been planning this discussion for decades. <strong>The web was never free.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL VI — ICC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Trial of Light Yagami"</em> — divine justice or mass murder? <strong>The notebook exists. I have seen a page.</strong></div>
+        </div>
+
+        <hr class="geo-hr">
+        <div class="geo-h2">THE CONVERGENCE COORDINATES 📍</div>
+        <div class="geo-p">Decoded from transmission #4471-B, October 2003. I ran the cipher three times. Same result every time:</div>
+        <div style="background:#000;padding:10px;border:3px inset #808080;font-family:'Courier New',monospace;color:#00ff00;font-size:12px;margin:8px 0;">
+          <div>LOCATION: 26°17'N 50°12'E</div>
+          <div>ALIAS: CROWNE PLAZA · AL KHOBAR</div>
+          <div>YEAR: [REDACTED — BUT NOT 2003]</div>
+          <div>ATTENDEES: 70+</div>
+          <div>NATIONS: 30+</div>
+          <div>VOLUNTEERS: 20+</div>
+          <div style="color:#ff4400;margin-top:6px;">STATUS: INEVITABLE ████████</div>
+        </div>
+
+        <hr class="geo-hr">
+        <div class="geo-h2">GUESTBOOK 💬</div>
+
+        <div class="geo-post">
+          <span class="geo-post-user">CicadaWatcher_88</span>
+          <span class="geo-post-date">Sep 12 2003 · 11:47pm</span>
+          <div class="geo-post-body">found this site from the IRC drop. you're right about the coordinates. the frequency at <em>3301 Hz</em> is clearest on the 7th of each month. keep digging.</div>
+        </div>
+        <div class="geo-post">
+          <span class="geo-post-user">anonymous</span>
+          <span class="geo-post-date">Sep 29 2003 · 2:13am</span>
+          <div class="geo-post-body">the six seals aren't committees. they're <em>keys</em>. when all six sessions end the lock opens. what's behind it? ask the delegates.</div>
+        </div>
+        <div class="geo-post">
+          <span class="geo-post-user">xI_lurker</span>
+          <span class="geo-post-date">Oct 04 2003 · 8:31pm</span>
+          <div class="geo-post-body">i decoded the logo. the hexagon. look at the angles: <span class="geo-code">60-60-60-60-60-60</span> — six equal parts. six committees. six seals. it was always there.</div>
+        </div>
+        <div class="geo-post">
+          <span class="geo-post-user">REDACTED</span>
+          <span class="geo-post-date">Oct 09 2003 · 3:01am</span>
+          <div class="geo-post-body"><em>stop posting. you are getting close. the secret phrase is buried below. they will know you found it when you use it. good luck.</em> <br><span style="color:#ff0000;font-weight:bold;">— this post was deleted. then it came back.</span></div>
+        </div>
+
+        <hr class="geo-hr">
+
+        <!-- THE SECRET -->
+        <div id="geo-secret">
+          <p style="margin-bottom:8px;">// TRANSMISSION #4471-B · ENCRYPTED PAYLOAD · HIGHLIGHT TO REVEAL</p>
+          <p style="color:#111;font-size:10px;margin-bottom:6px;">select the text below with your mouse</p>
+          <button id="geo-secret-reveal" onclick="revealSecret(this)">
+            ████████████████████████████
+          </button>
+          <p id="geo-secret-text" style="display:none;color:#ff4400;font-family:'Courier New',monospace;font-size:14px;letter-spacing:.2em;margin-top:8px;font-weight:bold;">DELEGATE · WHERE · THE · UNSEEN · FINDS · ITS · VOICE</p>
+          <p style="color:#333;font-size:9px;margin-top:10px;">// use this phrase at registration. they will know you found this page.</p>
+        </div>
+
+        <hr class="geo-hr">
+        <div class="geo-construction">
+          🚧 UNDER CONSTRUCTION 🚧<br>
+          <span style="font-size:10px;">more evidence coming soon. if this page disappears — you know why.</span>
+        </div>
+
+      </div><!-- /main col -->
+
+      <!-- SIDE COLUMN -->
+      <div class="geo-side-col">
+        <div class="geo-box">
+          <div class="geo-box-title">VISITOR COUNT</div>
+          <div class="geo-box-body">
+            <div class="geo-counter">031337<span class="geo-counter-label">VISITORS SINCE 1999</span></div>
+          </div>
+        </div>
+
+        <div class="geo-box">
+          <div class="geo-box-title">SITE STATS</div>
+          <div class="geo-box-body" style="font-size:10px;font-family:'Courier New',monospace;">
+            <div>📡 LAST UPDATE: 10/14/03</div>
+            <div>🌐 HOST: GEOCITIES/area51</div>
+            <div>💾 SIZE: 14.2kb</div>
+            <div>🔒 ENCRYPTION: ON</div>
+            <div style="margin-top:6px;color:#ff0000;font-weight:bold;" class="geo-blink">⚠ BEING MONITORED</div>
+          </div>
+        </div>
+
+        <div class="geo-box">
+          <div class="geo-box-title">BEST VIEWED IN</div>
+          <div class="geo-box-body" style="font-size:10px;text-align:center;">
+            <div>Netscape 4.0</div>
+            <div>800×600 resolution</div>
+            <div>16-bit color</div>
+            <div style="margin-top:4px;color:#ff0000;" class="geo-blink">⚠ IE NOT SUPPORTED</div>
+          </div>
+        </div>
+
+        <div class="geo-award">
+          🏆 WEBMASTER AWARD<br>
+          <span style="font-size:9px;">Best Conspiracy Site '03<br>— TruthWeb Directory</span>
+        </div>
+
+        <div class="geo-box">
+          <div class="geo-box-title">CONTACT</div>
+          <div class="geo-box-body">
+            <div class="geo-email-btn">📧 EMAIL XI_WATCHER</div>
+            <div style="font-size:10px;color:#808080;text-align:center;">pgp key available<br>on request</div>
+          </div>
+        </div>
+
+        <div class="geo-webring">
+          <strong>CONSPIRACY WEBRING</strong><br>
+          <a href="#">◀ PREV</a> · <a href="#">NEXT ▶</a><br>
+          <span style="font-size:9px;color:#808080;">[member since 2001]</span>
+        </div>
+
+      </div><!-- /side col -->
+    </div><!-- /layout -->
+
+    <!-- FOOTER -->
+    <div style="text-align:center;padding:8px;background:#000080;border:2px inset #808080;margin-top:6px;font-size:10px;color:#c0c0c0;font-family:'Courier New',monospace;">
+      © 2003 xI_watcher · hosted on geocities.com/Area51/Vault/4471 · <span class="geo-blink" style="color:#ffff00;">DO NOT LINK WITHOUT PERMISSION</span>
+    </div>
+  </div>
+</div>
+
+<!-- BG STARS FOR GEO PAGE -->
+<div id="geo-bg-stars"></div>
+
+<script>
+// ════ TIME MACHINE JS ════
+
+function launchTimeMachine(){
+  document.getElementById('tm-popup').classList.add('show');
+}
+function closeTimeMachine(){
+  document.getElementById('tm-popup').classList.remove('show');
+  document.getElementById('tm-year-display').textContent='2026';
+  document.getElementById('tm-year-display').classList.remove('glitching');
+  document.getElementById('tm-progress').style.width='0%';
+  document.getElementById('tm-status').textContent='AWAITING ACTIVATION...';
+  document.getElementById('tm-status').classList.remove('blink');
+  document.getElementById('tm-launch-btn').disabled=false;
+  document.getElementById('tm-launch-btn').textContent='INITIATE SEQUENCE';
+}
+
+function startTimeMachine(){
+  const btn=document.getElementById('tm-launch-btn');
+  btn.disabled=true;btn.textContent='CALCULATING...';
+  const yearEl=document.getElementById('tm-year-display');
+  const prog=document.getElementById('tm-progress');
+  const status=document.getElementById('tm-status');
+
+  const phases=[
+    {msg:'INITIALIZING TEMPORAL MATRIX...',prog:8,dur:600},
+    {msg:'SCANNING TIMELINE ANOMALIES...',prog:18,dur:500},
+    {msg:'LOCKING DESTINATION: 2012...',prog:32,dur:700},
+    {msg:'CICADA FREQUENCY DETECTED...',prog:44,dur:400},
+    {msg:'SIGNAL: 3301 Hz CONFIRMED...',prog:55,dur:500},
+    {msg:'CROSSING EVENT HORIZON...',prog:66,dur:600},
+    {msg:'LOCKING DESTINATION: 2003...',prog:76,dur:500},
+    {msg:'GEOCITIES NODE FOUND...',prog:86,dur:400},
+    {msg:'REALITY CORRUPTION IMMINENT...',prog:95,dur:300},
+    {msg:'BRACE FOR IMPACT...',prog:100,dur:200},
+  ];
+
+  let i=0;
+  function runPhase(){
+    if(i>=phases.length){startGlitchTransition();return;}
+    const p=phases[i++];
+    status.textContent=p.msg;
+    prog.style.width=p.prog+'%';
+    // year countdown
+    const targetYear=(i<4)?2012:2003;
+    const currentYear=parseInt(yearEl.textContent)||2026;
+    if(targetYear<currentYear){
+      yearEl.classList.add('glitching');
+      animateYear(currentYear,targetYear,400,()=>{
+        yearEl.classList.remove('glitching');
+        setTimeout(runPhase,p.dur);
+      });
+    } else {
+      setTimeout(runPhase,p.dur);
+    }
+  }
+  runPhase();
+}
+
+function animateYear(from,to,duration,cb){
+  const yearEl=document.getElementById('tm-year-display');
+  const steps=20;const stepDur=duration/steps;
+  let s=0;
+  const iv=setInterval(()=>{
+    s++;
+    const progress=s/steps;
+    const current=Math.round(from+(to-from)*progress);
+    // glitch: sometimes show random year
+    if(Math.random()<.4){
+      const glitchYear=Math.floor(Math.random()*(from-to))+to;
+      yearEl.textContent=glitchYear;
+    } else {
+      yearEl.textContent=current;
+    }
+    if(s>=steps){clearInterval(iv);yearEl.textContent=to;if(cb)cb();}
+  },stepDur);
+}
+
+// ════ GLITCH TRANSITION ════
+function startGlitchTransition(){
+  document.getElementById('tm-popup').classList.remove('show');
+  const overlay=document.getElementById('tm-glitch-overlay');
+  overlay.classList.add('show');
+  const yearEl=document.getElementById('tg-year');
+  const linesEl=document.getElementById('tg-lines');
+
+  // noise canvas
+  const canvas=document.getElementById('tg-noise');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  let noiseRunning=true;
+  function drawNoise(){
+    if(!noiseRunning)return;
+    const img=ctx.createImageData(canvas.width,canvas.height);
+    for(let i=0;i<img.data.length;i+=4){
+      const v=Math.random()<.12?255:0;
+      img.data[i]=v;img.data[i+1]=v;img.data[i+2]=v;img.data[i+3]=Math.random()<.08?200:0;
+    }
+    ctx.putImageData(img,0,0);
+    requestAnimationFrame(drawNoise);
+  }
+  drawNoise();
+
+  // terminal lines
+  const termLines=[
+    '> TEMPORAL LOCK ACQUIRED',
+    '> YEAR: 2012',
+    '> CICADA 3301 TRANSMISSION INTERCEPTED',
+    '> DECRYPTING...',
+    '> ...COORDINATES MATCH: 26N 50E',
+    '> SIGNAL PREDATES EXPECTED ORIGIN',
+    '> TRACING BACK...',
+    '> YEAR: 2003',
+    '> GEOCITIES/area51/vault/4471 FOUND',
+    '> xI_watcher.html LOADING...',
+    '> WARNING: THIS PAGE SHOULD NOT EXIST',
+  ];
+
+  let lineIdx=0;
+  function addLine(){
+    if(lineIdx>=termLines.length)return;
+    const div=document.createElement('div');
+    div.className='tg-terminal-line';
+    div.textContent=termLines[lineIdx++];
+    linesEl.appendChild(div);
+    setTimeout(addLine,220);
+  }
+
+  // sequence: 2026→2012→2003
+  setTimeout(()=>{yearEl.textContent='2012';yearEl.style.textShadow='0 0 40px rgba(0,255,160,.9)';yearEl.style.color='#00ffa0';},200);
+  setTimeout(addLine,400);
+  setTimeout(()=>{
+    yearEl.textContent='2003';
+    yearEl.style.color='#ffff00';
+    yearEl.style.textShadow='0 0 40px rgba(255,255,0,.9)';
+  },2400);
+  setTimeout(()=>{
+    noiseRunning=false;
+    overlay.classList.remove('show');
+    showGeoPage();
+  },3600);
+}
+
+// ════ GEOCITIES PAGE ════
+function showGeoPage(){
+  // spawn floating stars
+  const starsWrap=document.getElementById('geo-bg-stars');
+  starsWrap.innerHTML='';
+  const starChars=['★','☆','✦','✧','♦','♣','♠','●'];
+  for(let i=0;i<18;i++){
+    const s=document.createElement('div');
+    s.className='geo-bg-star';
+    s.textContent=starChars[Math.floor(Math.random()*starChars.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.animationDuration=(6+Math.random()*10)+'s';
+    s.style.animationDelay=(Math.random()*5)+'s';
+    s.style.color=`hsl(${Math.random()*360},100%,70%)`;
+    s.style.fontSize=(10+Math.random()*20)+'px';
+    starsWrap.appendChild(s);
+  }
+  document.getElementById('geo-page').classList.add('show');
+
+  // animate visitor counter
+  let count=31337;
+  const el=document.getElementById('geo-counter-num');
+  setInterval(()=>{
+    count+=Math.floor(Math.random()*3);
+    el.textContent=count.toString().padStart(9,'0');
+  },2000);
+}
+
+function closeGeoPage(){
+  document.getElementById('geo-page').classList.remove('show');
+  document.getElementById('geo-bg-stars').innerHTML='';
+}
+
+function revealSecret(btn){
+  btn.classList.add('revealed');
+  btn.style.color='#ff4400';
+  btn.style.letterSpacing='.2em';
+  btn.textContent='DELEGATE · WHERE · THE · UNSEEN · FINDS · ITS · VOICE';
+  document.getElementById('geo-secret-text').style.display='block';
+  // flash effect
+  document.getElementById('geo-secret').style.borderColor='#ff0000';
+  document.getElementById('geo-secret').style.boxShadow='0 0 20px rgba(255,0,0,.5)';
+  setTimeout(()=>{
+    document.getElementById('geo-secret').style.boxShadow='none';
+  },1000);
+}
 </script>
 </body>
 </html>
