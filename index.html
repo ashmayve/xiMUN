@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>xiMUN — Xi Model United Nations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Petit+Formal+Script&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#080808;--near:#111;--dark:#1a1a1a;--mid:#2a2a2a;
+  --muted:#666;--silver:#aaa;--light:#e0e0e0;--cream:#f5f2ed;--white:#fafafa;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--light);font-family:'Sorts Mill Goudy',serif;overflow-x:hidden;cursor:none;}
+
+/* CURSOR — glowing star */
+#cur{position:fixed;width:26px;height:26px;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);animation:starSpin 7s linear infinite;}
+#cur svg{filter:drop-shadow(0 0 5px rgba(255,255,255,.95)) drop-shadow(0 0 12px rgba(255,255,255,.6)) drop-shadow(0 0 24px rgba(255,255,255,.25));}
+#cur-ring{display:none;}
+@keyframes starSpin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(8,8,8,.98),transparent);border-bottom:1px solid rgba(255,255,255,.07);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:.25em;color:var(--white);text-decoration:none;text-transform:uppercase;text-shadow:0 0 20px rgba(255,255,255,.3);}
+.nav-links{display:none;}
+
+/* HAMBURGER */
+.ham{background:none;border:none;cursor:none;display:flex;flex-direction:column;gap:5px;padding:6px;z-index:300;position:relative;}
+.ham span{display:block;width:22px;height:1.5px;background:var(--white);transition:all .35s ease;transform-origin:center;}
+.ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* POPUP OVERLAY — clicks outside close menu */
+.menu-overlay{
+  position:fixed;inset:0;z-index:250;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.menu-overlay.show{opacity:1;pointer-events:all;}
+
+/* POPUP BOX */
+.dropdown-menu{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-46%) scale(.96);
+  z-index:260;
+  background:rgba(12,12,12,.98);
+  border:1px solid rgba(255,255,255,.1);
+  padding:52px 64px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  min-width:280px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.16,1,.3,1);
+}
+.dropdown-menu.open{
+  opacity:1;pointer-events:all;
+  transform:translate(-50%,-50%) scale(1);
+}
+/* top/bottom ornate lines */
+.dropdown-menu::before{content:'';position:absolute;top:18px;left:28px;right:28px;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);}
+.dropdown-menu::after{content:'';position:absolute;bottom:18px;left:28px;right:28px;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);}
+
+.dropdown-menu a{
+  font-family:'Sorts Mill Goudy',serif;
+  font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  text-decoration:none;
+  padding:11px 20px;
+  width:100%;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  transition:color .2s;
+}
+.dropdown-menu a:last-child{border-bottom:none;}
+.dropdown-menu a:hover{color:var(--white);}
+.menu-cta{
+  margin-top:16px!important;
+  color:var(--white)!important;
+  border:1px solid rgba(255,255,255,.2)!important;
+  border-bottom:1px solid rgba(255,255,255,.2)!important;
+  transition:all .2s!important;
+}
+.menu-cta:hover{background:var(--white)!important;color:var(--black)!important;}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--black);}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 50% 45%,rgba(255,255,255,.05) 0%,rgba(255,255,255,.02) 30%,transparent 65%),radial-gradient(ellipse 30% 20% at 50% 100%,rgba(255,255,255,.04) 0%,transparent 60%);}
+.particles{position:absolute;inset:0;overflow:hidden;}
+.particle{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:floatUp linear infinite;}
+@keyframes floatUp{0%{transform:translateY(110vh) scale(0);opacity:0;}10%{opacity:.4;}90%{opacity:.15;}100%{transform:translateY(-10vh) scale(1);opacity:0;}}
+
+/* HERO ATMOSPHERIC ELEMENTS */
+.hero-orb{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
+  pointer-events:none;
+  animation:orbFloat 10s ease-in-out infinite;
+}
+@keyframes orbFloat{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.15);opacity:1;}}
+
+.hero-spark{
+  position:absolute;border-radius:50%;
+  background:var(--white);
+  pointer-events:none;
+  box-shadow:0 0 6px 2px rgba(255,255,255,.8), 0 0 16px 4px rgba(255,255,255,.3);
+  animation:sparkTwinkle 3s ease-in-out infinite;
+}
+@keyframes sparkTwinkle{0%,100%{opacity:.15;transform:scale(.5);}50%{opacity:1;transform:scale(1.3);}}
+
+.hero-crossspark{
+  position:absolute;pointer-events:none;
+  filter:drop-shadow(0 0 4px rgba(255,255,255,.8)) drop-shadow(0 0 10px rgba(255,255,255,.3));
+  animation:crossTwinkle 4s ease-in-out infinite;
+}
+@keyframes crossTwinkle{0%,100%{opacity:.2;transform:scale(.8) rotate(0deg);}50%{opacity:1;transform:scale(1.2) rotate(15deg);}}
+.hero-frame{position:absolute;inset:28px;border:1px solid rgba(255,255,255,.08);pointer-events:none;}
+.hero-frame::before{content:'';position:absolute;inset:10px;border:1px solid rgba(255,255,255,.04);}
+
+/* HERO LOGO */
+.hero-logo-wrap{position:relative;display:inline-block;margin:8px auto 4px;animation:riseIn 1.4s .3s both;}
+.hero-logo-img{width:clamp(260px,36vw,460px);height:auto;display:block;filter:drop-shadow(0 0 40px rgba(255,255,255,.2)) drop-shadow(0 0 80px rgba(255,255,255,.09));mix-blend-mode:lighten;}
+.hero-logo-glow{position:absolute;inset:-60px;background:radial-gradient(ellipse 60% 55% at 50% 52%,rgba(255,255,255,.08) 0%,transparent 70%);pointer-events:none;animation:glowPulse 4s ease-in-out infinite;}
+@keyframes glowPulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+
+.hero-content{text-align:center;z-index:2;padding:0 24px;animation:riseIn 1.4s cubic-bezier(.16,1,.3,1) forwards;}
+@keyframes riseIn{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+.hero-eyebrow{font-family:'IM Fell English',serif;font-style:italic;font-size:15px;letter-spacing:.25em;color:var(--silver);margin-bottom:20px;animation:riseIn 1.4s .2s both;}
+
+/* ORNATE DIVIDER */
+.od{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto;}
+.od-line{height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.35),transparent);flex:1;max-width:180px;}
+.od-d{width:7px;height:7px;border:1px solid rgba(255,255,255,.6);transform:rotate(45deg);}
+.od-c{width:5px;height:5px;background:var(--white);transform:rotate(45deg);}
+
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,8vw,100px);font-weight:900;line-height:1;color:var(--white);letter-spacing:.3em;text-transform:uppercase;animation:riseIn 1.4s .25s both;text-shadow:0 0 20px rgba(255,255,255,.9), 0 0 60px rgba(255,255,255,.4), 0 0 120px rgba(255,255,255,.15);}
+.xi-script{font-family:'Petit Formal Script',cursive;font-size:clamp(90px,15vw,200px);display:inline-block;background:linear-gradient(135deg,#fff 0%,#bbb 40%,#fff 70%,#888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 40px rgba(255,255,255,.2));}
+.hero-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(16px,2.5vw,24px);color:rgba(255,255,255,.7);letter-spacing:.12em;margin-bottom:48px;animation:riseIn 1.4s .45s both;text-shadow:0 0 12px rgba(255,255,255,.5), 0 0 40px rgba(255,255,255,.2);}
+.hero-meta{display:inline-flex;margin-bottom:56px;border:1px solid rgba(255,255,255,.1);animation:riseIn 1.4s .55s both;}
+.hm-item{padding:20px 48px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+.hm-item:last-child{border-right:none;}
+.hm-label{font-size:9px;letter-spacing:.35em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+.hm-value{font-family:'Playfair Display',serif;font-size:20px;color:var(--white);}
+.hero-btns{display:flex;gap:16px;justify-content:center;animation:riseIn 1.4s .65s both;}
+.btn-p{background:var(--white);color:var(--black);padding:16px 52px;font-family:'Playfair Display',serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:all .3s;border:none;cursor:none;display:inline-block;}
+.btn-p:hover{background:var(--cream);box-shadow:0 0 40px rgba(255,255,255,.25);transform:translateY(-2px);}
+.btn-s{background:transparent;color:var(--light);padding:16px 52px;font-family:'Playfair Display',serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,.25);transition:all .3s;cursor:none;display:inline-block;}
+.btn-s:hover{border-color:var(--white);transform:translateY(-2px);}
+.scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:9px;letter-spacing:.3em;text-transform:uppercase;animation:riseIn 1.4s 1.2s both;}
+.sc-line{width:1px;height:52px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:scPulse 2s ease infinite;}
+@keyframes scPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* SECTIONS */
+section{position:relative;z-index:2;}
+.sec-inner{max-width:1200px;margin:0 auto;padding:110px 60px;}
+.sec-tag{font-family:'IM Fell English',serif;font-style:italic;font-size:13px;letter-spacing:.18em;color:var(--silver);display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.sec-tag::before,.sec-tag::after{content:'';flex-shrink:0;width:32px;height:1px;background:rgba(255,255,255,.3);}
+.sec-tag::after{width:16px;}
+.sec-h{font-family:'Playfair Display',serif;font-size:clamp(38px,5.5vw,68px);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:20px;}
+.sec-body{font-family:'IM Fell English',serif;font-size:19px;line-height:1.85;color:var(--muted);max-width:660px;}
+
+/* SECTION DIVIDERS */
+.div-wave{width:100%;display:flex;align-items:center;justify-content:center;padding:4px 0;position:relative;z-index:3;}
+
+/* ABOUT */
+#about{background:var(--near);border-top:1px solid rgba(255,255,255,.07);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-stats{display:grid;grid-template-columns:1fr;gap:3px;}
+.stat-card{background:var(--dark);padding:44px 36px;border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;transition:border-color .4s;}
+.stat-card:hover{border-color:rgba(255,255,255,.25);}
+.stat-n{font-family:'Playfair Display',serif;font-size:58px;font-weight:900;color:var(--white);line-height:1;}
+.stat-l{font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-top:8px;}
+
+/* COMMITTEES */
+#committees{background:var(--black);}
+/* PAST CONFERENCES ACCORDION */
+#past{background:var(--black);}
+.ac-item{border:1px solid rgba(255,255,255,.08);margin-bottom:3px;background:var(--near);transition:border-color .3s;}
+.ac-item.open{border-color:rgba(255,255,255,.18);}
+.ac-trigger{
+  width:100%;background:none;border:none;cursor:none;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 40px;gap:24px;
+  transition:background .3s;
+}
+.ac-trigger:hover{background:rgba(255,255,255,.03);}
+.ac-left{display:flex;align-items:center;gap:36px;}
+.ac-year{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,52px);font-weight:900;color:rgba(255,255,255,.12);line-height:1;min-width:90px;transition:color .3s;}
+.ac-item.open .ac-year{color:rgba(255,255,255,.5);}
+.ac-title-group{display:flex;flex-direction:column;gap:4px;text-align:left;}
+.ac-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);}
+.ac-tagline{font-family:'IM Fell English',serif;font-style:italic;font-size:14px;color:var(--muted);}
+.ac-right{display:flex;align-items:center;gap:20px;}
+.ac-meta-pill{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);border:1px solid rgba(255,255,255,.12);padding:5px 14px;}
+.ac-chevron{width:32px;height:32px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s;}
+.ac-item.open .ac-chevron{transform:rotate(180deg);border-color:rgba(255,255,255,.35);}
+.ac-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
+.ac-item.open .ac-body{max-height:600px;}
+.ac-body-inner{padding:0 40px 44px;}
+.ac-tabbed{display:grid;grid-template-columns:1fr 220px;gap:0;border-top:1px solid rgba(255,255,255,.07);padding-top:36px;}
+
+/* LEFT PANEL */
+.ac-tab-left{padding-right:48px;border-right:1px solid rgba(255,255,255,.07);}
+
+/* STATS */
+.ac-stats-panel{display:flex;flex-direction:column;gap:3px;}
+.ac-stat{
+  padding:24px 28px;
+  background:var(--dark);border:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:baseline;gap:16px;
+  transition:border-color .3s;
+}
+.ac-stat:hover{border-color:rgba(255,255,255,.15);}
+.ac-stat-n{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--white);line-height:1;}
+.ac-stat-l{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);}
+
+/* TAB CONTENT */
+.ac-tab-content{display:flex;flex-direction:column;gap:0;animation:acFadeIn .3s ease;}
+@keyframes acFadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* RIGHT TAB BUTTONS */
+.ac-tab-nav{
+  display:flex;flex-direction:column;
+  padding-left:32px;gap:4px;padding-top:4px;
+}
+.ac-tab-btn{
+  background:none;border:none;cursor:none;
+  text-align:left;
+  font-family:'Sorts Mill Goudy',serif;
+  font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  padding:16px 20px;
+  border-left:2px solid transparent;
+  transition:all .25s;
+  display:flex;align-items:center;gap:10px;
+}
+.ac-tab-btn:hover{color:rgba(255,255,255,.7);padding-left:26px;}
+.ac-tab-btn.active{color:var(--white);border-left-color:var(--white);padding-left:26px;}
+.ac-tab-icon{font-size:10px;opacity:.5;transition:transform .2s;}
+.ac-tab-btn.active .ac-tab-icon{opacity:1;transform:translateX(4px);}
+
+/* COMMITTEE CARDS */
+.ac-committees-panel{flex-direction:column!important;}
+.ac-comm-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:3px;
+  width:100%;
+}
+.ac-comm-card{
+  position:relative;height:110px;overflow:hidden;cursor:none;
+  border:1px solid rgba(255,255,255,.08);
+  background:var(--dark);
+  transition:border-color .3s;
+}
+.ac-comm-card:hover{border-color:rgba(255,255,255,.25);}
+.ac-comm-front,.ac-comm-back{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;text-align:center;
+  transition:opacity .3s, transform .3s;
+}
+.ac-comm-front{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:900;
+  color:rgba(255,255,255,.7);
+  letter-spacing:.1em;
+}
+.ac-comm-back{
+  font-family:'IM Fell English',serif;
+  font-style:italic;font-size:13px;
+  color:rgba(255,255,255,.6);
+  line-height:1.5;
+  background:rgba(10,10,10,.9);
+  opacity:0;transform:translateY(6px);
+}
+.ac-comm-card:hover .ac-comm-front{opacity:0;transform:translateY(-6px);}
+.ac-comm-card:hover .ac-comm-back{opacity:1;transform:translateY(0);}
+.ac-detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.ac-dk{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.ac-dv{font-family:'Playfair Display',serif;font-size:14px;color:var(--light);}
+.ac-sched-item{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.ac-time{font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;}
+.ac-event{font-size:14px;color:var(--light);}
+.ac-award{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.ac-award-icon{font-size:10px;color:rgba(255,255,255,.3);margin-top:3px;}
+.ac-award-title{font-size:14px;color:var(--light);}
+.ac-award-who{font-family:'IM Fell English',serif;font-style:italic;font-size:12px;color:var(--muted);margin-top:2px;}
+.ac-coming{display:flex;align-items:center;gap:20px;padding:32px 0 8px;}
+.ac-coming-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.12),transparent);}
+.ac-coming-text{font-family:'IM Fell English',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.25);white-space:nowrap;letter-spacing:.06em;}
+
+/* GALLERY PREVIEW CAROUSEL */
+#gallery{border-top:1px solid rgba(255,255,255,.07);}
+.gal-preview-header{
+  display:grid;grid-template-columns:1fr 1.4fr;
+  align-items:center;gap:0;
+  max-width:100%;min-height:520px;
+}
+.gal-preview-left{padding:80px 72px;}
+.gal-view-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--white);color:var(--black);
+  padding:16px 40px;
+  font-family:'Playfair Display',serif;font-size:12px;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;cursor:none;
+  transition:all .3s;
+}
+.gal-view-btn:hover{background:var(--cream);box-shadow:0 0 40px rgba(255,255,255,.2);transform:translateY(-2px);}
+.gal-preview-right{
+  position:relative;height:520px;
+  border-left:1px solid rgba(255,255,255,.07);
+  overflow:hidden;
+}
+.gal-carousel{width:100%;height:100%;overflow:hidden;position:relative;}
+.gal-track{
+  display:flex;height:100%;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+.gal-slide{
+  min-width:100%;height:100%;
+  position:relative;flex-shrink:0;
+  display:flex;flex-direction:column;
+  background:var(--dark);
+  overflow:hidden;
+}
+.gal-slide .g2-ph{
+  flex:1;width:100%;
+  background:linear-gradient(135deg,#1c1c1c 0%,#111 100%);
+  border-radius:0;
+  gap:14px;
+}
+.gal-slide-cap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 32px;
+  background:linear-gradient(to top,rgba(0,0,0,.75),transparent);
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:15px;color:rgba(255,255,255,.8);
+}
+.gal-controls{
+  position:absolute;bottom:24px;right:32px;
+  display:flex;align-items:center;gap:16px;
+  z-index:10;
+}
+.gal-ctrl{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(8,8,8,.7);border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;transition:all .2s;backdrop-filter:blur(8px);
+}
+.gal-ctrl:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);}
+.gal-dots{display:flex;gap:8px;align-items:center;}
+.gal-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;cursor:none;}
+.gal-dot.active{background:var(--white);transform:scale(1.3);}
+
+/* TEAM */
+#team{background:var(--near);border-top:1px solid rgba(255,255,255,.07);}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:56px;}
+.tm{background:var(--dark);border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;transition:all .4s;cursor:none;padding:0;}
+.tm::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--white),transparent);transform:scaleX(0);transform-origin:center;transition:transform .5s;}
+.tm:hover{border-color:rgba(255,255,255,.2);}
+.tm:hover::before{transform:scaleX(1);}
+.tm-photo{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(100%);}
+.tm-photo-placeholder{width:100%;aspect-ratio:3/4;background:linear-gradient(160deg,#1a1a1a,#0f0f0f);display:flex;align-items:center;justify-content:center;}
+.tm-photo-placeholder svg{opacity:.1;}
+.tm-info{padding:24px 20px;}
+.tm-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--white);margin-bottom:4px;}
+.tm-role{font-family:'IM Fell English',serif;font-style:italic;font-size:13px;color:var(--muted);letter-spacing:.05em;}
+
+/* REGISTRATION */
+#registration{background:var(--near);border-top:1px solid rgba(255,255,255,.07);}
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:56px;align-items:start;}
+.tier-stack{display:flex;flex-direction:column;gap:3px;}
+.tier{padding:28px 32px;background:var(--dark);border:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;transition:border-color .3s;position:relative;}
+.tier.feat{border-color:rgba(255,255,255,.3);background:var(--mid);}
+.tier.feat::before{content:'Most Popular';position:absolute;top:-1px;right:24px;background:var(--white);color:var(--black);padding:4px 12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;}
+.tier:hover{border-color:rgba(255,255,255,.3);}
+.tier-n{font-family:'Playfair Display',serif;font-size:17px;color:var(--white);margin-bottom:3px;}
+.tier-d{font-size:11px;color:var(--muted);letter-spacing:.06em;}
+.tier-price{font-family:'Playfair Display',serif;font-size:30px;color:var(--white);}
+.reg-form{display:flex;flex-direction:column;gap:14px;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fg{display:flex;flex-direction:column;gap:7px;}
+.fg label{font-size:9px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;}
+.fg input,.fg select,.fg textarea{background:var(--dark);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:13px 16px;font-family:'Sorts Mill Goudy',serif;font-size:14px;outline:none;transition:border-color .3s;cursor:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(255,255,255,.45);}
+.fg select option{background:var(--dark);}
+.fg textarea{resize:vertical;min-height:90px;}
+.submit-btn{background:var(--white);color:var(--black);padding:16px;width:100%;font-family:'Playfair Display',serif;font-size:14px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;border:none;cursor:none;transition:all .3s;margin-top:6px;}
+.submit-btn:hover{background:var(--cream);box-shadow:0 0 32px rgba(255,255,255,.2);}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(255,255,255,.08);padding:50px 60px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;overflow:hidden;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:.25em;text-transform:uppercase;color:var(--white);text-shadow:0 0 16px rgba(255,255,255,.2);}
+.footer-links{display:flex;gap:28px;list-style:none;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:10px;letter-spacing:.2em;text-transform:uppercase;transition:color .3s;}
+.footer-links a:hover{color:var(--white);}
+.footer-copy{font-size:10px;color:var(--muted);letter-spacing:.12em;}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:18px 20px;}
+  .nav-links{display:none;}
+  .sec-inner{padding:72px 20px;}
+  .about-grid,.reg-grid{grid-template-columns:1fr;gap:44px;}
+  .committees-grid{grid-template-columns:1fr;}
+  .gal-grid{grid-template-columns:1fr 1fr;}
+  .gi:nth-child(1),.gi:nth-child(4){grid-column:span 1;min-height:unset;}
+  footer{flex-direction:column;gap:20px;text-align:center;}
+  .fr{grid-template-columns:1fr;}
+  .sch-item{grid-template-columns:90px 1fr;}
+  .badge{display:none;}
+  .hero-meta{flex-direction:column;}
+  .hm-item{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.1);}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="13,1 15.2,9.8 24,10.5 17.5,16.2 19.8,25 13,20 6.2,25 8.5,16.2 2,10.5 10.8,9.8" fill="white" opacity="0.95"/><polygon points="13,4 14.4,10.6 21,11.1 16.2,15.4 17.8,22 13,18.5 8.2,22 9.8,15.4 5,11.1 11.6,10.6" fill="white"/></svg></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">xiMUN</a>
+  <button class="ham" id="ham" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <!-- DROPDOWN MENU -->
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+  <nav class="dropdown-menu" id="dropdownMenu">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#past" onclick="closeMenu()">Past Conferences</a>
+    <a href="#team" onclick="closeMenu()">Team</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#registration" onclick="closeMenu()" class="menu-cta">Register Interest</a>
+  </nav>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- atmospheric glow orbs -->
+  <div class="hero-orb" style="width:500px;height:500px;top:-100px;left:-150px;animation-delay:0s;"></div>
+  <div class="hero-orb" style="width:400px;height:400px;bottom:-80px;right:-100px;animation-delay:-3s;"></div>
+  <div class="hero-orb" style="width:300px;height:300px;top:40%;left:60%;animation-delay:-6s;"></div>
+
+  <!-- floating sparkle stars -->
+  <div class="hero-spark" style="top:18%;left:12%;width:3px;height:3px;animation-delay:0s;"></div>
+  <div class="hero-spark" style="top:72%;left:8%;width:2px;height:2px;animation-delay:-1.5s;"></div>
+  <div class="hero-spark" style="top:28%;right:10%;width:4px;height:4px;animation-delay:-0.8s;"></div>
+  <div class="hero-spark" style="top:65%;right:14%;width:2px;height:2px;animation-delay:-2.2s;"></div>
+  <div class="hero-spark" style="top:85%;left:35%;width:3px;height:3px;animation-delay:-3.1s;"></div>
+  <div class="hero-spark" style="top:12%;right:28%;width:2px;height:2px;animation-delay:-1.0s;"></div>
+  <div class="hero-spark" style="top:45%;left:5%;width:2px;height:2px;animation-delay:-4.2s;"></div>
+  <div class="hero-spark" style="top:55%;right:5%;width:3px;height:3px;animation-delay:-2.8s;"></div>
+
+  <!-- SVG cross-sparkles -->
+  <svg class="hero-crossspark" style="top:22%;left:18%;animation-delay:0s" width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="0" x2="8" y2="16" stroke="white" stroke-width="0.8" opacity="0.6"/><line x1="0" y1="8" x2="16" y2="8" stroke="white" stroke-width="0.8" opacity="0.6"/><line x1="2" y1="2" x2="14" y2="14" stroke="white" stroke-width="0.5" opacity="0.3"/><line x1="14" y1="2" x2="2" y2="14" stroke="white" stroke-width="0.5" opacity="0.3"/></svg>
+  <svg class="hero-crossspark" style="top:70%;right:18%;animation-delay:-2s" width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="0" x2="6" y2="12" stroke="white" stroke-width="0.8" opacity="0.5"/><line x1="0" y1="6" x2="12" y2="6" stroke="white" stroke-width="0.8" opacity="0.5"/></svg>
+  <svg class="hero-crossspark" style="top:38%;left:75%;animation-delay:-1.2s" width="20" height="20" viewBox="0 0 20 20" fill="none"><line x1="10" y1="0" x2="10" y2="20" stroke="white" stroke-width="0.8" opacity="0.45"/><line x1="0" y1="10" x2="20" y2="10" stroke="white" stroke-width="0.8" opacity="0.45"/><line x1="3" y1="3" x2="17" y2="17" stroke="white" stroke-width="0.5" opacity="0.2"/><line x1="17" y1="3" x2="3" y2="17" stroke="white" stroke-width="0.5" opacity="0.2"/></svg>
+  <svg class="hero-crossspark" style="top:80%;left:22%;animation-delay:-3.5s" width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="white" stroke-width="0.8" opacity="0.4"/><line x1="0" y1="5" x2="10" y2="5" stroke="white" stroke-width="0.8" opacity="0.4"/></svg>
+
+  <!-- ornate corner swirls -->
+  <svg style="position:absolute;top:0;left:0;pointer-events:none;opacity:.5" width="240" height="240" viewBox="0 0 240 240" fill="none">
+    <path d="M12,12 L12,70 M12,12 L70,12" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+    <circle cx="12" cy="12" r="3.5" fill="rgba(255,255,255,.5)"/>
+    <path d="M12,12 C70,12 130,12 130,70 C130,104 108,116 88,116 C68,116 56,102 56,88 C56,74 66,66 76,66 C86,66 92,74 92,82 C92,90 86,96 79,96" stroke="rgba(255,255,255,.22)" stroke-width="1.3" fill="none"/>
+    <path d="M12,12 Q12,88 88,88 Q148,88 148,28 Q148,12 132,12 Q118,12 118,24 Q118,36 132,36 Q142,36 142,26" stroke="rgba(255,255,255,.14)" stroke-width="1" fill="none"/>
+    <path d="M12,12 Q12,150 150,150 Q200,150 210,100" stroke="rgba(255,255,255,.07)" stroke-width="1" fill="none"/>
+    <path d="M28,12 Q22,28 12,34" stroke="rgba(255,255,255,.2)" stroke-width="1" fill="none"/>
+    <path d="M48,12 Q38,38 12,48" stroke="rgba(255,255,255,.12)" stroke-width="0.8" fill="none"/>
+    <path d="M12,90 C24,72 40,66 52,78 C40,84 24,88 12,90Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.15)" stroke-width="0.8"/>
+    <path d="M90,12 C72,24 66,40 78,52 C84,40 88,24 90,12Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.15)" stroke-width="0.8"/>
+    <circle cx="130" cy="88" r="3" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+  </svg>
+  <svg style="position:absolute;top:0;right:0;pointer-events:none;opacity:.5;transform:scaleX(-1)" width="240" height="240" viewBox="0 0 240 240" fill="none">
+    <path d="M12,12 L12,70 M12,12 L70,12" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+    <circle cx="12" cy="12" r="3.5" fill="rgba(255,255,255,.5)"/>
+    <path d="M12,12 C70,12 130,12 130,70 C130,104 108,116 88,116 C68,116 56,102 56,88 C56,74 66,66 76,66 C86,66 92,74 92,82 C92,90 86,96 79,96" stroke="rgba(255,255,255,.22)" stroke-width="1.3" fill="none"/>
+    <path d="M12,12 Q12,88 88,88 Q148,88 148,28 Q148,12 132,12 Q118,12 118,24 Q118,36 132,36 Q142,36 142,26" stroke="rgba(255,255,255,.14)" stroke-width="1" fill="none"/>
+    <path d="M12,90 C24,72 40,66 52,78 C40,84 24,88 12,90Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.15)" stroke-width="0.8"/>
+    <path d="M90,12 C72,24 66,40 78,52 C84,40 88,24 90,12Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.15)" stroke-width="0.8"/>
+  </svg>
+  <svg style="position:absolute;bottom:0;left:0;pointer-events:none;opacity:.5;transform:scaleY(-1)" width="240" height="240" viewBox="0 0 240 240" fill="none">
+    <path d="M12,12 L12,70 M12,12 L70,12" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+    <circle cx="12" cy="12" r="3.5" fill="rgba(255,255,255,.5)"/>
+    <path d="M12,12 C70,12 130,12 130,70 C130,104 108,116 88,116 C68,116 56,102 56,88 C56,74 66,66 76,66 C86,66 92,74 92,82 C92,90 86,96 79,96" stroke="rgba(255,255,255,.22)" stroke-width="1.3" fill="none"/>
+    <path d="M12,12 Q12,88 88,88 Q148,88 148,28 Q148,12 132,12 Q118,12 118,24 Q118,36 132,36 Q142,36 142,26" stroke="rgba(255,255,255,.14)" stroke-width="1" fill="none"/>
+    <path d="M12,90 C24,72 40,66 52,78 C40,84 24,88 12,90Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.15)" stroke-width="0.8"/>
+  </svg>
+  <svg style="position:absolute;bottom:0;right:0;pointer-events:none;opacity:.5;transform:scale(-1,-1)" width="240" height="240" viewBox="0 0 240 240" fill="none">
+    <path d="M12,12 L12,70 M12,12 L70,12" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+    <circle cx="12" cy="12" r="3.5" fill="rgba(255,255,255,.5)"/>
+    <path d="M12,12 C70,12 130,12 130,70 C130,104 108,116 88,116 C68,116 56,102 56,88 C56,74 66,66 76,66 C86,66 92,74 92,82 C92,90 86,96 79,96" stroke="rgba(255,255,255,.22)" stroke-width="1.3" fill="none"/>
+    <path d="M12,12 Q12,88 88,88 Q148,88 148,28 Q148,12 132,12 Q118,12 118,24 Q118,36 132,36 Q142,36 142,26" stroke="rgba(255,255,255,.14)" stroke-width="1" fill="none"/>
+    <path d="M12,90 C24,72 40,66 52,78 C40,84 24,88 12,90Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.15)" stroke-width="0.8"/>
+  </svg>
+
+  <div class="hero-frame"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="ximun-logo.png" alt="" class="hero-logo-img">
+      <div class="hero-logo-glow"></div>
+    </div>
+    <div class="od" style="animation-delay:.5s"><div class="od-line"></div><div class="od-d"></div><div class="od-c"></div><div class="od-d"></div><div class="od-line"></div></div>
+    <h1 class="hero-title">XIMUN</h1>
+    <p class="hero-sub">Where the unseen finds its voice</p>
+    <div class="hero-meta">
+      <div class="hm-item"><div class="hm-label">Date</div><div class="hm-value">TBD 2026</div></div>
+      <div class="hm-item" style="border-right:1px solid rgba(255,255,255,.1)"><div class="hm-label">Location</div><div class="hm-value">TBD</div></div>
+      <div class="hm-item"><div class="hm-label">Days</div><div class="hm-value">2</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#registration" class="btn-p">Register Interest</a>
+      <a href="#about" class="btn-s">Learn More</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="sc-line"></div></div>
+</section>
+
+<!-- WAVE DIVIDER -->
+<div class="div-wave" style="background:var(--near)">
+  <svg width="100%" height="48" viewBox="0 0 1200 48" preserveAspectRatio="none" fill="none">
+    <path d="M0,24 C50,24 50,4 100,4 C150,4 150,44 200,44 C250,44 250,4 300,4 C350,4 350,44 400,44 C450,44 450,4 500,4 C550,4 550,44 600,44 C650,44 650,4 700,4 C750,4 750,44 800,44 C850,44 850,4 900,4 C950,4 950,44 1000,44 C1050,44 1050,4 1100,4 C1150,4 1150,44 1200,44" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+    <rect x="595" y="19" width="10" height="10" transform="rotate(45 600 24)" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+    <rect x="293" y="21" width="6" height="6" transform="rotate(45 296 24)" fill="rgba(255,255,255,0.15)"/>
+    <rect x="893" y="21" width="6" height="6" transform="rotate(45 896 24)" fill="rgba(255,255,255,0.15)"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-inner">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="sec-tag">About xiMUN</p>
+        <h2 class="sec-h">Forging the Next Generation of Leaders</h2>
+        <div class="od" style="justify-content:flex-start;margin:18px 0 24px"><div class="od-line" style="max-width:80px"></div><div class="od-d"></div><div class="od-c"></div><div class="od-d"></div><div class="od-line" style="max-width:40px"></div></div>
+        <p class="sec-body">xiMUN is a premier Model United Nations conference that challenges delegates to engage with the world's most pressing issues through rigorous debate, collaborative problem-solving, and the art of diplomacy.<br><br>Delegates step into the shoes of world leaders — crafting resolutions, building coalitions, and navigating the complexities of international relations in an atmosphere of intellectual rigour and mutual respect.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card"><div class="stat-n">70+</div><div class="stat-l">Delegates</div></div>
+        <div class="stat-card"><div class="stat-n">30+</div><div class="stat-l">Nations Represented</div></div>
+        <div class="stat-card"><div class="stat-n">2</div><div class="stat-l">Days of Debate</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAST CONFERENCES -->
+<section id="past">
+  <div class="sec-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:64px">
+      <p class="sec-tag" style="justify-content:center">Our History</p>
+      <h2 class="sec-h" style="text-align:center">Past Conferences</h2>
+      <p class="sec-body" style="margin:0 auto 0">Every edition has left its mark. Explore the conferences that came before.</p>
+    </div>
+
+    <!-- ACCORDION ITEM 1 -->
+    <div class="ac-item reveal" id="ac1">
+      <button class="ac-trigger" onclick="toggleAc('ac1')">
+        <div class="ac-left">
+          <span class="ac-year">2025</span>
+          <div class="ac-title-group">
+            <span class="ac-name">xiMUN I</span>
+            <span class="ac-tagline">The Inaugural Conference</span>
+          </div>
+        </div>
+        <div class="ac-right">
+          <div class="ac-chevron">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6.5L9 11.5L14 6.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+      </button>
+      <div class="ac-body">
+        <div class="ac-body-inner">
+          <div class="ac-tabbed">
+
+            <!-- LEFT: content area -->
+            <div class="ac-tab-left">
+
+              <!-- DEFAULT: stats -->
+              <div class="ac-stats-panel" id="ac1-stats">
+                <div class="ac-stat"><div class="ac-stat-n">70+</div><div class="ac-stat-l">Delegates</div></div>
+                <div class="ac-stat"><div class="ac-stat-n">30+</div><div class="ac-stat-l">Nations Represented</div></div>
+                <div class="ac-stat"><div class="ac-stat-n">20+</div><div class="ac-stat-l">Volunteers</div></div>
+                <div class="ac-stat"><div class="ac-stat-n">2</div><div class="ac-stat-l">Days of Debate</div></div>
+              </div>
+
+              <!-- DETAILS panel -->
+              <div class="ac-tab-content" id="ac1-details" style="display:none">
+                <div class="ac-detail-row"><span class="ac-dk">Date</span><span class="ac-dv">TBD, 2025</span></div>
+                <div class="ac-detail-row"><span class="ac-dk">Venue</span><span class="ac-dv">Crowne Plaza AlKhobar</span></div>
+                <div class="ac-detail-row"><span class="ac-dk">Delegates</span><span class="ac-dv">70+</span></div>
+                <div class="ac-detail-row"><span class="ac-dk">Volunteers</span><span class="ac-dv">20+</span></div>
+                <div class="ac-detail-row"><span class="ac-dk">Committees</span><span class="ac-dv">6</span></div>
+                <div class="ac-detail-row"><span class="ac-dk">Nations</span><span class="ac-dv">30+</span></div>
+              </div>
+
+
+
+              <!-- ACHIEVEMENTS panel -->
+              <div class="ac-tab-content" id="ac1-awards" style="display:none">
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Resolutions Written</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Best Delegate Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Outstanding Delegate Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">6 Honorable Mention Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">1 Best Press Award</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">2 Best Admin Awards</div></div></div>
+                <div class="ac-award"><div class="ac-award-icon">✦</div><div><div class="ac-award-title">2 Best Chair Awards</div></div></div>
+              </div>
+
+              <!-- COMMITTEES panel -->
+              <div class="ac-tab-content ac-committees-panel" id="ac1-committees" style="display:none">
+                <div class="ac-comm-grid">
+                  <div class="ac-comm-card">
+                    <div class="ac-comm-front">UNHRC</div>
+                    <div class="ac-comm-back"><em>Behind the Veil of Asylum: Justice Denied in the Name of Rights</em></div>
+                  </div>
+                  <div class="ac-comm-card">
+                    <div class="ac-comm-front">UNESCO</div>
+                    <div class="ac-comm-back"><em>The Lost Wonder: Who Owns the Hanging Gardens of Babylon?</em></div>
+                  </div>
+                  <div class="ac-comm-card">
+                    <div class="ac-comm-front">UNSC</div>
+                    <div class="ac-comm-back"><em>The Fall of the Romanovs: Power, Revolution, and Responsibility</em></div>
+                  </div>
+                  <div class="ac-comm-card">
+                    <div class="ac-comm-front">UNCTE</div>
+                    <div class="ac-comm-back"><em>Five Nights at Freddy's: The Regulation and Ethical Oversight of Synthetic Lifeforms</em></div>
+                  </div>
+                  <div class="ac-comm-card">
+                    <div class="ac-comm-front">DISEC</div>
+                    <div class="ac-comm-back"><em>The Dark Web and Algorithmic Radicalization: A Threat to Global Security</em></div>
+                  </div>
+                  <div class="ac-comm-card">
+                    <div class="ac-comm-front">ICC</div>
+                    <div class="ac-comm-back"><em>The Trial of Light Yagami: Mass Murder or Divine Justice?</em></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT: tab buttons -->
+            <div class="ac-tab-nav">
+              <button class="ac-tab-btn" onclick="switchAcTab('ac1','details',this)">
+                <span class="ac-tab-icon">→</span> Details
+              </button>
+              <button class="ac-tab-btn" onclick="switchAcTab('ac1','committees',this)">
+                <span class="ac-tab-icon">→</span> Committees
+              </button>
+              <button class="ac-tab-btn" onclick="switchAcTab('ac1','achievements',this)">
+                <span class="ac-tab-icon">→</span> Achievements
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- future conferences placeholder -->
+    <div class="ac-coming reveal">
+      <div class="ac-coming-line"></div>
+      <span class="ac-coming-text">More editions to come ✦</span>
+      <div class="ac-coming-line"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="div-wave" style="background:var(--black)">
+  <svg width="700" height="44" viewBox="0 0 700 44" fill="none">
+    <line x1="0" y1="22" x2="290" y2="22" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <line x1="410" y1="22" x2="700" y2="22" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M290,22 Q310,5 330,22 Q350,39 370,22 Q390,5 410,22" stroke="rgba(255,255,255,0.28)" stroke-width="1.2" fill="none"/>
+    <circle cx="350" cy="22" r="4.5" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+    <circle cx="350" cy="22" r="1.8" fill="rgba(255,255,255,0.55)"/>
+  </svg>
+</div>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="sec-inner">
+    <div class="reveal" style="text-align:center">
+      <p class="sec-tag" style="justify-content:center">The Team</p>
+      <h2 class="sec-h" style="text-align:center">Meet the Team</h2>
+      <p class="sec-body" style="margin:0 auto">The dedicated individuals bringing xiMUN to life.</p>
+    </div>
+    <!-- SECRETARIAT ROW: DSG · SG (center) · USG -->
+    <div class="team-secretariat reveal" style="margin-top:52px">
+      <div class="tm-card tm-card-sm">
+        <div class="tm-card-inner">
+          <div class="tm-card-front"><svg width="32" height="32" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg></div>
+          <div class="tm-card-back"><div class="tm-card-name">Abdul Rahman Khan</div><div class="tm-card-role">Deputy Secretary-General</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-lg">
+        <div class="tm-card-inner">
+          <div class="tm-card-front"><svg width="44" height="44" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.35)" stroke-width="1.5" fill="none"/></svg></div>
+          <div class="tm-card-back"><div class="tm-card-name">Ayesha Ali</div><div class="tm-card-role">Secretary-General</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-sm">
+        <div class="tm-card-inner">
+          <div class="tm-card-front"><svg width="32" height="32" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="12" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/><path d="M8,54 C8,40 52,40 52,54" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/></svg></div>
+          <div class="tm-card-back"><div class="tm-card-name">Moath Huzaim</div><div class="tm-card-role">Under Secretary-General</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEPARTMENTS ROW -->
+    <div class="team-depts reveal" style="margin-top:12px">
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Delegate Affairs<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Admins &amp; Security<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">PR &amp; Finance<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Design<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Editing<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
+      </div>
+      <div class="tm-card tm-card-dept">
+        <div class="tm-card-inner">
+          <div class="tm-card-front tm-dept-label">Chair Affairs<br>Department</div>
+          <div class="tm-card-back"><div class="tm-card-name" style="font-style:italic;opacity:.5">TBD</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWIN-WAVE DIVIDER -->
+<div class="div-wave" style="background:var(--black)">
+  <svg width="700" height="44" viewBox="0 0 700 44" fill="none">
+    <line x1="0" y1="22" x2="290" y2="22" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <line x1="410" y1="22" x2="700" y2="22" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M290,22 Q310,5 330,22 Q350,39 370,22 Q390,5 410,22" stroke="rgba(255,255,255,0.28)" stroke-width="1.2" fill="none"/>
+    <circle cx="350" cy="22" r="4.5" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+    <circle cx="350" cy="22" r="1.8" fill="rgba(255,255,255,0.55)"/>
+    <path d="M320,22 Q322,14 328,11 Q332,9 332,22" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" fill="rgba(255,255,255,0.04)"/>
+    <path d="M380,22 Q378,14 372,11 Q368,9 368,22" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" fill="rgba(255,255,255,0.04)"/>
+  </svg>
+</div>
+
+<!-- GALLERY PREVIEW -->
+<section id="gallery" style="background:var(--near);padding:0;overflow:hidden;">
+  <div class="gal-preview-header">
+    <div class="gal-preview-left reveal">
+      <p class="sec-tag">Gallery</p>
+      <h2 class="sec-h" style="font-size:clamp(40px,6vw,80px);line-height:1.0;">Our <em style="font-style:italic;color:var(--silver);">Gallery</em></h2>
+      <p class="sec-body" style="margin-bottom:36px;">Every photo tells a story — debates, diplomacy, and the moments between.</p>
+      <a href="ximun-gallery.html" class="gal-view-btn">
+        <span>✦</span> View Full Gallery
+      </a>
+    </div>
+    <div class="gal-preview-right">
+      <div class="gal-carousel" id="galCarousel">
+        <div class="gal-track" id="galTrack">
+          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><path d="M18,14 L20,10 L28,10 L30,14" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Opening Ceremony · xiMUN 2024</div></div>
+          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Committee Session in Motion</div></div>
+          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Delegates at Welcome Dinner</div></div>
+          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Best Delegate Award Ceremony</div></div>
+          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Closing Ceremony</div></div>
+        </div>
+      </div>
+      <div class="gal-controls">
+        <button class="gal-ctrl" onclick="galMove(-1)" aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="gal-dots" id="galDots"></div>
+        <button class="gal-ctrl" onclick="galMove(1)" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4L12 9L7 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWIN-WAVE DIVIDER -->
+<div class="div-wave" style="background:var(--near)">
+  <svg width="100%" height="44" viewBox="0 0 1200 44" preserveAspectRatio="none" fill="none">
+    <path d="M0,16 C200,16 200,4 400,4 C600,4 600,40 800,40 C1000,40 1000,16 1200,16" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+    <path d="M0,28 C200,28 200,40 400,40 C600,40 600,4 800,4 C1000,4 1000,28 1200,28" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+    <circle cx="600" cy="22" r="5" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+    <circle cx="600" cy="22" r="2" fill="rgba(255,255,255,0.3)"/>
+  </svg>
+</div>
+
+<!-- REGISTRATION -->
+<section id="registration">
+  <div class="sec-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:56px">
+      <p class="sec-tag" style="justify-content:center">Registration</p>
+      <h2 class="sec-h" style="text-align:center">Register Your Interest</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px">
+        <svg width="200" height="20" viewBox="0 0 200 20" fill="none"><path d="M0,10 Q25,2 50,10 Q75,18 100,10 Q125,2 150,10 Q175,18 200,10" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/><circle cx="100" cy="10" r="3" fill="rgba(255,255,255,0.3)"/></svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" transform="rotate(45 7 7)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/><circle cx="7" cy="7" r="2.5" fill="rgba(255,255,255,0.4)"/></svg>
+        <svg width="200" height="20" viewBox="0 0 200 20" fill="none"><path d="M0,10 Q25,18 50,10 Q75,2 100,10 Q125,18 150,10 Q175,2 200,10" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/><circle cx="100" cy="10" r="3" fill="rgba(255,255,255,0.3)"/></svg>
+      </div>
+    </div>
+    <div class="reveal" style="max-width:860px;margin:0 auto;">
+      <p class="sec-body" style="text-align:center;margin-bottom:40px;">Fill out the form below and we'll keep you updated with committee announcements, schedules, and all registration details as they're confirmed.</p>
+      <div style="border:1px solid rgba(255,255,255,.08);overflow:hidden;height:420px;overflow-y:auto;">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeFnHK0iF9Se4q52RBF2mt-lRLneDump6ad2dAgKVGUKL0yCg/viewform?embedded=true"
+          width="100%"
+          height="820"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          style="display:block;background:#fff;"
+        >Loading form…</iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <svg style="position:absolute;bottom:0;left:0;opacity:.2;pointer-events:none" width="160" height="140" viewBox="0 0 160 140" fill="none"><path d="M3,137 Q3,60 80,60 Q140,60 140,120 Q140,136 128,136 Q115,136 115,123 Q115,110 128,110 Q137,110 137,120" stroke="white" stroke-width="1" fill="none"/><circle cx="3" cy="137" r="2.5" fill="white"/></svg>
+  <svg style="position:absolute;bottom:0;right:0;opacity:.2;pointer-events:none;transform:scaleX(-1)" width="160" height="140" viewBox="0 0 160 140" fill="none"><path d="M3,137 Q3,60 80,60 Q140,60 140,120 Q140,136 128,136 Q115,136 115,123 Q115,110 128,110 Q137,110 137,120" stroke="white" stroke-width="1" fill="none"/><circle cx="3" cy="137" r="2.5" fill="white"/></svg>
+  <div class="footer-logo">xiMUN</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#past">Past Conferences</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#registration">Register</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 xiMUN. All rights reserved.</div>
+  <button id="tm-trigger" onclick="launchTimeMachine()" title="">✦</button>
+</footer>
+
+<script>
+// CURSOR — glowing star
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,.cc,.gi,.tier,.stat-card,.tm').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) rotate(0deg) scale(1.6)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) rotate(0deg) scale(1)';});
+});
+
+// HAMBURGER MENU
+function toggleMenu(){
+  const ham=document.getElementById('ham');
+  const menu=document.getElementById('dropdownMenu');
+  const overlay=document.getElementById('menuOverlay');
+  const isOpen=menu.classList.contains('open');
+  if(isOpen){closeMenu();}else{
+    ham.classList.add('open');
+    menu.classList.add('open');
+    overlay.classList.add('show');
+  }
+}
+function closeMenu(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('dropdownMenu').classList.remove('open');
+  document.getElementById('menuOverlay').classList.remove('show');
+}
+
+
+const pc=document.getElementById('particles');
+for(let i=0;i<28;i++){
+  const p=document.createElement('div');p.className='particle';
+  const s=Math.random()*4+2;
+  p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*20+15}s;animation-delay:${Math.random()*-20}s;`;
+  pc.appendChild(p);
+}
+
+// ACCORDION
+function toggleAc(id){
+  const item=document.getElementById(id);
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.ac-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ACCORDION TAB SWITCHER
+function switchAcTab(acId, tab, btn){
+  const stats=document.getElementById(acId+'-stats');
+  const allContents=document.querySelectorAll('#'+acId+' .ac-tab-content');
+  const allBtns=document.querySelectorAll('#'+acId+' .ac-tab-btn');
+  const wasActive=btn.classList.contains('active');
+
+  // reset all
+  allBtns.forEach(b=>b.classList.remove('active'));
+  allContents.forEach(c=>{c.style.display='none';});
+
+  if(wasActive){
+    // toggle back to stats
+    stats.style.display='flex';
+    return;
+  }
+
+  // show selected
+  stats.style.display='none';
+  btn.classList.add('active');
+  const target=document.getElementById(acId+'-'+tab);
+  if(target){
+    target.style.display = (tab==='committees') ? 'block' : 'flex';
+  }
+}
+
+// GALLERY CAROUSEL
+let galIdx=0;
+const galSlides=document.querySelectorAll('.gal-slide');
+const galTrack=document.getElementById('galTrack');
+const galDotsEl=document.getElementById('galDots');
+galSlides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='gal-dot'+(i===0?' active':'');
+  d.onclick=()=>galGoTo(i);
+  galDotsEl.appendChild(d);
+});
+function galGoTo(n){
+  galIdx=(n+galSlides.length)%galSlides.length;
+  galTrack.style.transform=`translateX(-${galIdx*100}%)`;
+  document.querySelectorAll('.gal-dot').forEach((d,i)=>d.classList.toggle('active',i===galIdx));
+}
+function galMove(dir){galGoTo(galIdx+dir);}
+setInterval(()=>galMove(1),4000);
+
+// FORM
+function handleReg(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.submit-btn');
+  btn.textContent='Interest Registered ✦';
+  btn.style.background='#e8e8e8';
+  setTimeout(()=>{btn.textContent='Register Interest';btn.style.background='var(--white)';},3500);
+}
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<!-- ════════════════════════════════════════
+     TIME MACHINE SYSTEM
+════════════════════════════════════════ -->
+<style>
+/* HIDDEN TRIGGER */
+#tm-trigger{
+  position:fixed;bottom:22px;right:32px;
+  background:none;border:none;cursor:pointer;
+  font-size:14px;color:rgba(255,255,255,.07);
+  padding:12px;z-index:100;
+  transition:color .6s,text-shadow .6s;
+  font-family:'Sorts Mill Goudy',serif;
+  letter-spacing:.1em;
+}
+#tm-trigger:hover{
+  color:rgba(255,255,255,.28);
+  text-shadow:0 0 10px rgba(255,255,255,.15);
+}
+
+/* ── TIME MACHINE POPUP ── */
+#tm-popup{
+  position:fixed;inset:0;z-index:10000;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.95);
+}
+#tm-popup.show{display:flex;}
+#tm-machine{
+  width:min(540px,92vw);
+  border:2px solid #333;
+  background:#080808;
+  font-family:'Share Tech Mono',monospace;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 0 1px #222, 0 0 80px rgba(255,60,0,.08);
+}
+/* machine header */
+#tm-machine::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 4px);
+  pointer-events:none;z-index:1;
+}
+.tm-header{
+  background:linear-gradient(to bottom,#1a1a1a,#111);
+  border-bottom:1px solid #2a2a2a;
+  padding:10px 14px;display:flex;align-items:center;gap:10px;
+}
+.tm-header-dot{width:10px;height:10px;border-radius:50%;}
+.tm-header-dot.r{background:#cc3333;}
+.tm-header-dot.y{background:#cc9900;}
+.tm-header-dot.g{background:#33aa33;}
+.tm-header-title{font-size:11px;color:#666;letter-spacing:.2em;flex:1;text-align:center;}
+.tm-body{padding:32px 36px;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.tm-label{font-size:10px;letter-spacing:.3em;color:#444;text-transform:uppercase;}
+
+/* YEAR DISPLAY */
+#tm-year-display{
+  font-family:'VT323',monospace;font-size:96px;
+  color:#ff4400;line-height:1;
+  text-shadow:0 0 20px rgba(255,60,0,.8), 0 0 60px rgba(255,60,0,.3);
+  letter-spacing:.1em;
+  transition:color .1s;
+  min-width:280px;text-align:center;
+}
+#tm-year-display.glitching{animation:yearGlitch .08s steps(1) infinite;}
+@keyframes yearGlitch{
+  0%{transform:translate(0);color:#ff4400;}
+  20%{transform:translate(-3px,1px);color:#00ffaa;filter:blur(1px);}
+  40%{transform:translate(3px,-1px);color:#ff00ff;}
+  60%{transform:translate(-1px,2px);color:#ffff00;}
+  80%{transform:translate(2px,-2px);color:#ff4400;}
+  100%{transform:translate(0);color:#ff4400;}
+}
+
+/* PROGRESS / STATUS */
+.tm-progress-wrap{width:100%;height:6px;background:#111;border:1px solid #222;}
+.tm-progress-bar{height:100%;width:0%;background:linear-gradient(to right,#ff4400,#ff8800);transition:width .1s linear;box-shadow:0 0 8px rgba(255,80,0,.6);}
+#tm-status{font-size:11px;color:#ff6600;letter-spacing:.15em;min-height:16px;text-align:center;}
+#tm-status.blink{animation:statusBlink .5s step-end infinite;}
+@keyframes statusBlink{50%{opacity:0;}}
+
+.tm-warning{
+  font-size:10px;color:#333;letter-spacing:.12em;line-height:1.7;text-align:center;max-width:340px;
+  border-top:1px solid #1a1a1a;padding-top:16px;width:100%;
+}
+.tm-warning span{color:#ff4400;}
+
+#tm-launch-btn{
+  background:none;border:1px solid #ff4400;color:#ff4400;
+  font-family:'VT323',monospace;font-size:20px;padding:10px 40px;
+  cursor:pointer;letter-spacing:.2em;
+  box-shadow:0 0 12px rgba(255,60,0,.2);
+  transition:all .2s;
+}
+#tm-launch-btn:hover{background:rgba(255,60,0,.1);box-shadow:0 0 24px rgba(255,60,0,.4);}
+#tm-close{
+  position:absolute;top:10px;right:14px;background:none;border:none;
+  color:#333;font-size:16px;cursor:pointer;font-family:'Sorts Mill Goudy',serif;
+  z-index:2;
+}
+#tm-close:hover{color:#888;}
+
+/* ── GLITCH TRANSITION OVERLAY ── */
+#tm-glitch-overlay{
+  position:fixed;inset:0;z-index:20000;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  background:#000;
+  font-family:'Share Tech Mono',monospace;
+  overflow:hidden;
+}
+#tm-glitch-overlay.show{display:flex;}
+#tg-year{
+  font-family:'VT323',monospace;font-size:180px;color:#ff4400;
+  text-shadow:0 0 40px rgba(255,60,0,.9);
+  position:absolute;
+  animation:none;
+}
+#tg-noise{position:absolute;inset:0;pointer-events:none;}
+#tg-scanline{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:rgba(255,255,255,.15);
+  animation:scanlineSweep .6s linear infinite;
+}
+@keyframes scanlineSweep{from{top:-4px;}to{top:100vh;}}
+.tg-terminal-line{
+  font-size:12px;color:#00ff41;letter-spacing:.1em;
+  animation:termFlicker .12s step-end 3;
+  margin:2px 0;
+}
+#tg-lines{position:absolute;bottom:60px;left:60px;right:60px;}
+
+/* ── GEOCITIES PAGE ── */
+#geo-page{
+  position:fixed;inset:0;z-index:15000;
+  cursor:none;
+  display:none;overflow-y:auto;overflow-x:hidden;
+  background:#000080 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAHklEQVQoU2NkYGD4z8BQDwRMQxkYgQBiNIMBAABHAAH/7MB8AAAAAElFTkSuQmCC") repeat;
+  font-family:'Courier New',monospace;
+}
+#geo-page.show{display:block;}
+
+.geo-wrap{
+  max-width:780px;margin:0 auto;padding:12px;
+  background:#c0c0c0;
+  border:3px outset #ffffff;
+  margin-top:8px;margin-bottom:8px;
+}
+
+/* GEO TITLE BAR */
+.geo-titlebar{
+  background:linear-gradient(to right,#000080,#1084d0);
+  color:#fff;padding:4px 8px;font-size:12px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:'Courier New',monospace;
+  border:2px outset #fff;
+  margin-bottom:2px;
+}
+.geo-tb-btns{display:flex;gap:2px;}
+.geo-tb-btn{
+  background:#c0c0c0;border:2px outset #fff;
+  width:16px;height:14px;font-size:9px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:#000;
+}
+
+/* GEO HEADER */
+.geo-header{
+  background:#000;
+  text-align:center;padding:16px 8px;
+  border:3px inset #808080;
+}
+.geo-site-title{
+  font-family:'Comic Sans MS','Chalkboard SE',cursive;
+  font-size:clamp(22px,5vw,38px);
+  color:#ffff00;
+  text-shadow:3px 3px #ff0000, -1px -1px #ff00ff;
+  animation:geoBlink 1s step-end infinite;
+  letter-spacing:.05em;
+  display:block;
+}
+@keyframes geoBlink{50%{text-shadow:3px 3px #00ffff,-1px -1px #ff00ff;}}
+.geo-subtitle{
+  font-family:'Comic Sans MS',cursive;
+  font-size:13px;color:#00ff00;
+  animation:subBlink .7s step-end infinite;
+}
+@keyframes subBlink{50%{opacity:0;}}
+.geo-visitor{
+  font-size:10px;color:#ff8800;font-family:'Courier New',monospace;
+  margin-top:8px;
+}
+.geo-stars{font-size:18px;animation:starSpin2 3s linear infinite;display:inline-block;}
+@keyframes starSpin2{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* GEO NAV BAR */
+.geo-nav{
+  background:#000080;
+  display:flex;flex-wrap:wrap;gap:2px;padding:4px;
+  border:2px inset #808080;margin:4px 0;
+  justify-content:center;
+}
+.geo-nav a{
+  background:#808080;border:2px outset #fff;
+  padding:3px 10px;font-size:11px;color:#ffff00;
+  text-decoration:none;font-family:'Courier New',monospace;
+  font-weight:bold;white-space:nowrap;
+}
+.geo-nav a:hover{background:#c0c0c0;color:#000080;}
+
+/* GEO MAIN LAYOUT */
+.geo-layout{display:grid;grid-template-columns:1fr 200px;gap:6px;margin-top:6px;}
+.geo-main-col{background:#ffffff;border:3px inset #808080;padding:12px;}
+.geo-side-col{display:flex;flex-direction:column;gap:6px;}
+
+/* GEO SECTION BOX */
+.geo-box{
+  background:#c0c0c0;border:3px outset #fff;
+  border-bottom-color:#808080;border-right-color:#808080;
+  overflow:hidden;
+}
+.geo-box-title{
+  background:linear-gradient(to right,#000080,#1084d0);
+  color:#fff;padding:3px 8px;font-size:11px;
+  font-family:'Courier New',monospace;font-weight:bold;
+  letter-spacing:.05em;
+}
+.geo-box-body{padding:8px;font-size:12px;color:#000;}
+
+/* GEO TEXT STYLES */
+.geo-h2{
+  font-family:'Comic Sans MS',cursive;font-size:18px;
+  color:#ff0000;text-decoration:underline;
+  margin-bottom:8px;
+}
+.geo-p{font-size:12px;line-height:1.6;color:#000000;margin-bottom:8px;}
+.geo-blink{animation:geoBlink2 1s step-end infinite;}
+@keyframes geoBlink2{50%{visibility:hidden;}}
+.geo-marquee-wrap{
+  background:#000;border:2px inset #808080;
+  padding:4px 0;overflow:hidden;white-space:nowrap;
+  margin:8px 0;
+}
+.geo-marquee{
+  display:inline-block;
+  animation:geoScroll 18s linear infinite;
+  font-size:13px;font-weight:bold;
+  font-family:'Comic Sans MS',cursive;
+  color:#00ffff;
+}
+@keyframes geoScroll{from{transform:translateX(100vw);}to{transform:translateX(-100%);};}
+.geo-hr{border:none;border-top:2px solid #808080;border-bottom:2px solid #fff;margin:8px 0;}
+.geo-img-placeholder{
+  background:#008080;border:3px inset #808080;
+  width:100%;height:100px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#ffff00;text-align:center;
+  font-family:'Courier New',monospace;
+  margin:8px 0;
+}
+
+/* GUESTBOOK / FORUM */
+.geo-post{
+  background:#fff;border:2px inset #808080;
+  padding:8px;margin-bottom:6px;font-size:11px;
+}
+.geo-post-user{color:#000080;font-weight:bold;font-family:'Courier New',monospace;}
+.geo-post-date{color:#808080;font-size:10px;float:right;}
+.geo-post-body{color:#000;margin-top:4px;line-height:1.5;}
+.geo-post-body em{color:#cc0000;}
+.geo-post-body .geo-code{
+  background:#000;color:#00ff00;
+  font-family:'Courier New',monospace;
+  padding:2px 6px;font-size:11px;display:inline-block;margin:2px 0;
+}
+
+/* SECRET CODE */
+#geo-secret{
+  background:#000;border:3px inset #808080;
+  padding:12px;text-align:center;margin:12px 0;
+}
+#geo-secret p{color:#333;font-size:10px;font-family:'Courier New',monospace;}
+#geo-secret-reveal{
+  color:#000;background:#000;
+  font-family:'Courier New',monospace;font-size:13px;font-weight:bold;
+  letter-spacing:.2em;cursor:pointer;border:none;padding:4px 8px;
+  transition:color .3s;display:block;margin:8px auto;
+}
+#geo-secret-reveal:hover{color:#ff0000 !important;}
+#geo-secret-reveal.revealed{color:#ff0000 !important;background:#000;}
+
+/* SIDE WIDGETS */
+.geo-counter{
+  background:#000;color:#00ff00;
+  font-family:'Courier New',monospace;
+  padding:8px;text-align:center;font-size:20px;
+  border:3px inset #808080;letter-spacing:.2em;
+}
+.geo-counter-label{font-size:9px;color:#808080;display:block;margin-top:4px;letter-spacing:.1em;}
+.geo-webring{background:#fff;border:3px inset #808080;padding:8px;text-align:center;font-size:10px;color:#000080;}
+.geo-webring a{color:#ff0000;font-weight:bold;text-decoration:underline;}
+.geo-award{
+  background:#ffff00;border:3px outset #fff;
+  padding:6px;text-align:center;font-size:10px;
+  font-family:'Comic Sans MS',cursive;font-weight:bold;color:#000080;
+}
+.geo-construction{
+  text-align:center;padding:8px;background:#ffff00;
+  border:2px solid #000;font-size:11px;font-family:'Comic Sans MS',cursive;
+  color:#000;
+}
+.geo-email-btn{
+  display:block;background:#000080;color:#ffff00;
+  border:2px outset #fff;padding:6px;text-align:center;
+  text-decoration:none;font-family:'Courier New',monospace;font-size:11px;
+  font-weight:bold;margin:4px 0;cursor:pointer;
+}
+.geo-email-btn:hover{background:#0000cc;}
+
+/* CLOSE BUTTON for geo page */
+#geo-close-btn{
+  position:fixed;top:12px;right:12px;z-index:16000;
+  background:#cc0000;border:3px outset #ff6666;color:#fff;
+  font-family:'Courier New',monospace;font-size:13px;font-weight:bold;
+  padding:6px 14px;cursor:pointer;
+}
+#geo-close-btn:hover{background:#ff0000;}
+#geo-close-btn:active{border-style:inset;}
+
+/* ANIMATED BG STARS */
+.geo-bg-star{
+  position:fixed;pointer-events:none;z-index:14999;
+  animation:bgStarFloat linear infinite;font-size:14px;opacity:.6;
+}
+@keyframes bgStarFloat{from{transform:translateY(100vh) rotate(0deg);opacity:.8;}to{transform:translateY(-10vh) rotate(720deg);opacity:0;}}
+</style>
+
+<!-- ── TIME MACHINE POPUP ── -->
+<div id="tm-popup">
+  <div id="tm-machine">
+    <div class="tm-header">
+      <div class="tm-header-dot r"></div>
+      <div class="tm-header-dot y"></div>
+      <div class="tm-header-dot g"></div>
+      <div class="tm-header-title">TEMPORAL NAVIGATION UNIT v0.03</div>
+    </div>
+    <div class="tm-body">
+      <div class="tm-label">DESTINATION YEAR</div>
+      <div id="tm-year-display">2026</div>
+      <div class="tm-progress-wrap"><div class="tm-progress-bar" id="tm-progress"></div></div>
+      <div id="tm-status">AWAITING ACTIVATION...</div>
+      <button id="tm-launch-btn" onclick="startTimeMachine()">INITIATE SEQUENCE</button>
+      <div class="tm-warning">
+        WARNING: temporal displacement may cause<br>
+        <span>REALITY CORRUPTION</span> · proceed with caution<br>
+        <br>destination node: <span>XI-ARCHIVE-2003</span>
+      </div>
+    </div>
+    <button id="tm-close" onclick="closeTimeMachine()">✕</button>
+  </div>
+</div>
+
+<!-- ── GLITCH TRANSITION OVERLAY ── -->
+<div id="tm-glitch-overlay">
+  <canvas id="tg-noise"></canvas>
+  <div id="tg-scanline"></div>
+  <div id="tg-year">2026</div>
+  <div id="tg-lines"></div>
+</div>
+
+<!-- ── GEOCITIES PAGE ── -->
+<div id="geo-page">
+  <button id="geo-close-btn" onclick="closeGeoPage()">✕ RETURN TO PRESENT</button>
+
+  <div class="geo-wrap">
+    <!-- TITLE BAR -->
+    <div class="geo-titlebar">
+      <span>🌐 xI_watcher's Homepage — Netscape Navigator 4.0</span>
+      <div class="geo-tb-btns">
+        <div class="geo-tb-btn">_</div>
+        <div class="geo-tb-btn">□</div>
+        <div class="geo-tb-btn">✕</div>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="geo-header">
+      <span class="geo-stars">★</span>
+      <span class="geo-site-title">⚠ XI_WATCHER'S TRUTH PAGE ⚠</span>
+      <span class="geo-stars">★</span>
+      <br>
+      <span class="geo-subtitle">★★ THEY DON'T WANT YOU TO KNOW THIS ★★</span>
+      <div class="geo-visitor">[ VISITOR COUNT: <span id="geo-counter-num">000031337</span> ] — YOU ARE BEING WATCHED</div>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="geo-marquee-wrap">
+      <span class="geo-marquee">★ LAST UPDATED: OCTOBER 14, 2003 ★ &nbsp;&nbsp;&nbsp; THE CICADA SPEAKS IN FREQUENCIES WE CANNOT HEAR &nbsp;&nbsp;&nbsp; ★ XI IS NOT A LETTER. XI IS A COORDINATE. ★ &nbsp;&nbsp;&nbsp; UNHRC. UNESCO. UNSC. UNCTE. DISEC. ICC. — THE SIX SEALS &nbsp;&nbsp;&nbsp; ★ CROWNE PLAZA. ALKHOBAR. THE CONVERGENCE POINT. ★ &nbsp;&nbsp;&nbsp; 30+ NATIONS. 70+ DELEGATES. THE NUMBERS WERE ALWAYS THERE. &nbsp;&nbsp;&nbsp;</span>
+    </div>
+
+    <!-- NAV -->
+    <div class="geo-nav">
+      <a href="#">HOME</a>
+      <a href="#">THE EVIDENCE</a>
+      <a href="#">THE SIX SEALS</a>
+      <a href="#">CONTACT XI_WATCHER</a>
+      <a href="#">GUESTBOOK (12)</a>
+      <a href="#">LINKS</a>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="geo-layout">
+
+      <!-- MAIN COLUMN -->
+      <div class="geo-main-col">
+
+        <div class="geo-h2">⚠ THEY ARE COMING ⚠</div>
+        <div class="geo-p">If you are reading this, you have <em>found me</em>. My name doesn't matter. What matters is what I have uncovered. Since 1998 I have been monitoring encrypted transmissions on IRC channels — dead drops, cipher keys, coordinates buried in USENET posts. In September 2003 I finally understood what all of it was pointing toward.</div>
+        <div class="geo-p">A gathering. Not yet. But it <em>will</em> happen. In a city by the gulf. In a building of crowns. <span class="geo-blink"><strong>They call it xiMUN.</strong></span></div>
+        <hr class="geo-hr">
+
+        <div class="geo-h2">THE SIX SEALS 🔒</div>
+        <div class="geo-p">Every great convergence has its chambers. I have decoded the SIX from the frequency transmissions. Each one debates a piece of the puzzle:</div>
+
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL I — UNHRC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"Behind the Veil of Asylum"</em> — they will debate justice denied. The hand that reaches but cannot grasp. <strong>I have seen this symbol before.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL II — UNESCO</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Lost Wonder"</em> — Babylon. The hanging gardens. Ownership of history. <strong>Who controls the past controls the future.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL III — UNSC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Fall of the Romanovs"</em> — power. revolution. the throne always falls. <strong>history does not repeat. it echoes.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL IV — UNCTE</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"Five Nights"</em> — synthetic lifeforms. ethical oversight. <strong>THE MACHINE THAT WATCHES.</strong> I know what this means.</div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL V — DISEC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Dark Web"</em> — algorithmic radicalization. they have been planning this discussion for decades. <strong>The web was never free.</strong></div>
+        </div>
+        <div class="geo-box" style="margin-bottom:6px;">
+          <div class="geo-box-title">📁 SEAL VI — ICC</div>
+          <div class="geo-box-body" style="font-size:11px;"><em>"The Trial of Light Yagami"</em> — divine justice or mass murder? <strong>The notebook exists. I have seen a page.</strong></div>
+        </div>
+
+        <hr class="geo-hr">
+        <div class="geo-h2">THE CONVERGENCE COORDINATES 📍</div>
+        <div class="geo-p">Decoded from transmission #4471-B, October 2003. I ran the cipher three times. Same result every time:</div>
+        <div style="background:#000;padding:10px;border:3px inset #808080;font-family:'Courier New',monospace;color:#00ff00;font-size:12px;margin:8px 0;">
+          <div>LOCATION: 26°17'N 50°12'E</div>
+          <div>ALIAS: CROWNE PLAZA · AL KHOBAR</div>
+          <div>YEAR: [REDACTED — BUT NOT 2003]</div>
+          <div>ATTENDEES: 70+</div>
+          <div>NATIONS: 30+</div>
+          <div>VOLUNTEERS: 20+</div>
+          <div style="color:#ff4400;margin-top:6px;">STATUS: INEVITABLE ████████</div>
+        </div>
+
+        <hr class="geo-hr">
+        <div class="geo-h2">GUESTBOOK 💬</div>
+
+        <div class="geo-post">
+          <span class="geo-post-user">CicadaWatcher_88</span>
+          <span class="geo-post-date">Sep 12 2003 · 11:47pm</span>
+          <div class="geo-post-body">found this site from the IRC drop. you're right about the coordinates. the frequency at <em>3301 Hz</em> is clearest on the 7th of each month. keep digging.</div>
+        </div>
+        <div class="geo-post">
+          <span class="geo-post-user">anonymous</span>
+          <span class="geo-post-date">Sep 29 2003 · 2:13am</span>
+          <div class="geo-post-body">the six seals aren't committees. they're <em>keys</em>. when all six sessions end the lock opens. what's behind it? ask the delegates.</div>
+        </div>
+        <div class="geo-post">
+          <span class="geo-post-user">xI_lurker</span>
+          <span class="geo-post-date">Oct 04 2003 · 8:31pm</span>
+          <div class="geo-post-body">i decoded the logo. the hexagon. look at the angles: <span class="geo-code">60-60-60-60-60-60</span> — six equal parts. six committees. six seals. it was always there.</div>
+        </div>
+        <div class="geo-post">
+          <span class="geo-post-user">REDACTED</span>
+          <span class="geo-post-date">Oct 09 2003 · 3:01am</span>
+          <div class="geo-post-body"><em>stop posting. you are getting close. the secret phrase is buried below. they will know you found it when you use it. good luck.</em> <br><span style="color:#ff0000;font-weight:bold;">— this post was deleted. then it came back.</span></div>
+        </div>
+
+        <hr class="geo-hr">
+
+        <!-- THE SECRET -->
+        <div id="geo-secret">
+          <p style="margin-bottom:8px;">// TRANSMISSION #4471-B · ENCRYPTED PAYLOAD · HIGHLIGHT TO REVEAL</p>
+          <p style="color:#111;font-size:10px;margin-bottom:6px;">select the text below with your mouse</p>
+          <button id="geo-secret-reveal" onclick="revealSecret(this)">
+            ████████████████████████████
+          </button>
+          <p id="geo-secret-text" style="display:none;color:#ff4400;font-family:'Courier New',monospace;font-size:14px;letter-spacing:.2em;margin-top:8px;font-weight:bold;">DELEGATE · WHERE · THE · UNSEEN · FINDS · ITS · VOICE</p>
+          <p style="color:#333;font-size:9px;margin-top:10px;">// use this phrase at registration. they will know you found this page.</p>
+        </div>
+
+        <hr class="geo-hr">
+        <div class="geo-construction">
+          🚧 UNDER CONSTRUCTION 🚧<br>
+          <span style="font-size:10px;">more evidence coming soon. if this page disappears — you know why.</span>
+        </div>
+
+      </div><!-- /main col -->
+
+      <!-- SIDE COLUMN -->
+      <div class="geo-side-col">
+        <div class="geo-box">
+          <div class="geo-box-title">VISITOR COUNT</div>
+          <div class="geo-box-body">
+            <div class="geo-counter">031337<span class="geo-counter-label">VISITORS SINCE 1999</span></div>
+          </div>
+        </div>
+
+        <div class="geo-box">
+          <div class="geo-box-title">SITE STATS</div>
+          <div class="geo-box-body" style="font-size:10px;font-family:'Courier New',monospace;">
+            <div>📡 LAST UPDATE: 10/14/03</div>
+            <div>🌐 HOST: GEOCITIES/area51</div>
+            <div>💾 SIZE: 14.2kb</div>
+            <div>🔒 ENCRYPTION: ON</div>
+            <div style="margin-top:6px;color:#ff0000;font-weight:bold;" class="geo-blink">⚠ BEING MONITORED</div>
+          </div>
+        </div>
+
+        <div class="geo-box">
+          <div class="geo-box-title">BEST VIEWED IN</div>
+          <div class="geo-box-body" style="font-size:10px;text-align:center;">
+            <div>Netscape 4.0</div>
+            <div>800×600 resolution</div>
+            <div>16-bit color</div>
+            <div style="margin-top:4px;color:#ff0000;" class="geo-blink">⚠ IE NOT SUPPORTED</div>
+          </div>
+        </div>
+
+        <div class="geo-award">
+          🏆 WEBMASTER AWARD<br>
+          <span style="font-size:9px;">Best Conspiracy Site '03<br>— TruthWeb Directory</span>
+        </div>
+
+        <div class="geo-box">
+          <div class="geo-box-title">CONTACT</div>
+          <div class="geo-box-body">
+            <div class="geo-email-btn">📧 EMAIL XI_WATCHER</div>
+            <div style="font-size:10px;color:#808080;text-align:center;">pgp key available<br>on request</div>
+          </div>
+        </div>
+
+        <div class="geo-webring">
+          <strong>CONSPIRACY WEBRING</strong><br>
+          <a href="#">◀ PREV</a> · <a href="#">NEXT ▶</a><br>
+          <span style="font-size:9px;color:#808080;">[member since 2001]</span>
+        </div>
+
+      </div><!-- /side col -->
+    </div><!-- /layout -->
+
+    <!-- FOOTER -->
+    <div style="text-align:center;padding:8px;background:#000080;border:2px inset #808080;margin-top:6px;font-size:10px;color:#c0c0c0;font-family:'Courier New',monospace;">
+      © 2003 xI_watcher · hosted on geocities.com/Area51/Vault/4471 · <span class="geo-blink" style="color:#ffff00;">DO NOT LINK WITHOUT PERMISSION</span>
+    </div>
+  </div>
+</div>
+
+<!-- BG STARS FOR GEO PAGE -->
+<div id="geo-bg-stars"></div>
+
+<script>
+// ════ TIME MACHINE JS ════
+
+function launchTimeMachine(){
+  document.getElementById('tm-popup').classList.add('show');
+}
+function closeTimeMachine(){
+  document.getElementById('tm-popup').classList.remove('show');
+  document.getElementById('tm-year-display').textContent='2026';
+  document.getElementById('tm-year-display').classList.remove('glitching');
+  document.getElementById('tm-progress').style.width='0%';
+  document.getElementById('tm-status').textContent='AWAITING ACTIVATION...';
+  document.getElementById('tm-status').classList.remove('blink');
+  document.getElementById('tm-launch-btn').disabled=false;
+  document.getElementById('tm-launch-btn').textContent='INITIATE SEQUENCE';
+}
+
+function startTimeMachine(){
+  const btn=document.getElementById('tm-launch-btn');
+  btn.disabled=true;btn.textContent='CALCULATING...';
+  const yearEl=document.getElementById('tm-year-display');
+  const prog=document.getElementById('tm-progress');
+  const status=document.getElementById('tm-status');
+
+  const phases=[
+    {msg:'INITIALIZING TEMPORAL MATRIX...',prog:8,dur:600},
+    {msg:'SCANNING TIMELINE ANOMALIES...',prog:18,dur:500},
+    {msg:'LOCKING DESTINATION: 2012...',prog:32,dur:700},
+    {msg:'CICADA FREQUENCY DETECTED...',prog:44,dur:400},
+    {msg:'SIGNAL: 3301 Hz CONFIRMED...',prog:55,dur:500},
+    {msg:'CROSSING EVENT HORIZON...',prog:66,dur:600},
+    {msg:'LOCKING DESTINATION: 2003...',prog:76,dur:500},
+    {msg:'GEOCITIES NODE FOUND...',prog:86,dur:400},
+    {msg:'REALITY CORRUPTION IMMINENT...',prog:95,dur:300},
+    {msg:'BRACE FOR IMPACT...',prog:100,dur:200},
+  ];
+
+  let i=0;
+  function runPhase(){
+    if(i>=phases.length){startGlitchTransition();return;}
+    const p=phases[i++];
+    status.textContent=p.msg;
+    prog.style.width=p.prog+'%';
+    // year countdown
+    const targetYear=(i<4)?2012:2003;
+    const currentYear=parseInt(yearEl.textContent)||2026;
+    if(targetYear<currentYear){
+      yearEl.classList.add('glitching');
+      animateYear(currentYear,targetYear,400,()=>{
+        yearEl.classList.remove('glitching');
+        setTimeout(runPhase,p.dur);
+      });
+    } else {
+      setTimeout(runPhase,p.dur);
+    }
+  }
+  runPhase();
+}
+
+function animateYear(from,to,duration,cb){
+  const yearEl=document.getElementById('tm-year-display');
+  const steps=20;const stepDur=duration/steps;
+  let s=0;
+  const iv=setInterval(()=>{
+    s++;
+    const progress=s/steps;
+    const current=Math.round(from+(to-from)*progress);
+    // glitch: sometimes show random year
+    if(Math.random()<.4){
+      const glitchYear=Math.floor(Math.random()*(from-to))+to;
+      yearEl.textContent=glitchYear;
+    } else {
+      yearEl.textContent=current;
+    }
+    if(s>=steps){clearInterval(iv);yearEl.textContent=to;if(cb)cb();}
+  },stepDur);
+}
+
+// ════ GLITCH TRANSITION ════
+function startGlitchTransition(){
+  document.getElementById('tm-popup').classList.remove('show');
+  const overlay=document.getElementById('tm-glitch-overlay');
+  overlay.classList.add('show');
+  const yearEl=document.getElementById('tg-year');
+  const linesEl=document.getElementById('tg-lines');
+
+  // noise canvas
+  const canvas=document.getElementById('tg-noise');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  let noiseRunning=true;
+  function drawNoise(){
+    if(!noiseRunning)return;
+    const img=ctx.createImageData(canvas.width,canvas.height);
+    for(let i=0;i<img.data.length;i+=4){
+      const v=Math.random()<.12?255:0;
+      img.data[i]=v;img.data[i+1]=v;img.data[i+2]=v;img.data[i+3]=Math.random()<.08?200:0;
+    }
+    ctx.putImageData(img,0,0);
+    requestAnimationFrame(drawNoise);
+  }
+  drawNoise();
+
+  // terminal lines
+  const termLines=[
+    '> TEMPORAL LOCK ACQUIRED',
+    '> YEAR: 2012',
+    '> CICADA 3301 TRANSMISSION INTERCEPTED',
+    '> DECRYPTING...',
+    '> ...COORDINATES MATCH: 26N 50E',
+    '> SIGNAL PREDATES EXPECTED ORIGIN',
+    '> TRACING BACK...',
+    '> YEAR: 2003',
+    '> GEOCITIES/area51/vault/4471 FOUND',
+    '> xI_watcher.html LOADING...',
+    '> WARNING: THIS PAGE SHOULD NOT EXIST',
+  ];
+
+  let lineIdx=0;
+  function addLine(){
+    if(lineIdx>=termLines.length)return;
+    const div=document.createElement('div');
+    div.className='tg-terminal-line';
+    div.textContent=termLines[lineIdx++];
+    linesEl.appendChild(div);
+    setTimeout(addLine,220);
+  }
+
+  // sequence: 2026→2012→2003
+  setTimeout(()=>{yearEl.textContent='2012';yearEl.style.textShadow='0 0 40px rgba(0,255,160,.9)';yearEl.style.color='#00ffa0';},200);
+  setTimeout(addLine,400);
+  setTimeout(()=>{
+    yearEl.textContent='2003';
+    yearEl.style.color='#ffff00';
+    yearEl.style.textShadow='0 0 40px rgba(255,255,0,.9)';
+  },2400);
+  setTimeout(()=>{
+    noiseRunning=false;
+    overlay.classList.remove('show');
+    showGeoPage();
+  },3600);
+}
+
+// ════ GEOCITIES PAGE ════
+function showGeoPage(){
+  // spawn floating stars
+  const starsWrap=document.getElementById('geo-bg-stars');
+  starsWrap.innerHTML='';
+  const starChars=['★','☆','✦','✧','♦','♣','♠','●'];
+  for(let i=0;i<18;i++){
+    const s=document.createElement('div');
+    s.className='geo-bg-star';
+    s.textContent=starChars[Math.floor(Math.random()*starChars.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.animationDuration=(6+Math.random()*10)+'s';
+    s.style.animationDelay=(Math.random()*5)+'s';
+    s.style.color=`hsl(${Math.random()*360},100%,70%)`;
+    s.style.fontSize=(10+Math.random()*20)+'px';
+    starsWrap.appendChild(s);
+  }
+  document.getElementById('geo-page').classList.add('show');
+
+  // animate visitor counter
+  let count=31337;
+  const el=document.getElementById('geo-counter-num');
+  setInterval(()=>{
+    count+=Math.floor(Math.random()*3);
+    el.textContent=count.toString().padStart(9,'0');
+  },2000);
+}
+
+function closeGeoPage(){
+  document.getElementById('geo-page').classList.remove('show');
+  document.getElementById('geo-bg-stars').innerHTML='';
+}
+
+function revealSecret(btn){
+  btn.classList.add('revealed');
+  btn.style.color='#ff4400';
+  btn.style.letterSpacing='.2em';
+  btn.textContent='DELEGATE · WHERE · THE · UNSEEN · FINDS · ITS · VOICE';
+  document.getElementById('geo-secret-text').style.display='block';
+  // flash effect
+  document.getElementById('geo-secret').style.borderColor='#ff0000';
+  document.getElementById('geo-secret').style.boxShadow='0 0 20px rgba(255,0,0,.5)';
+  setTimeout(()=>{
+    document.getElementById('geo-secret').style.boxShadow='none';
+  },1000);
+}
+</script>
+</body>
+</html>
