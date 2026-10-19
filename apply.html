@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — xiMUN</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#080808;--near:#111;--dark:#1a1a1a;--mid:#2a2a2a;
+  --muted:#777;--silver:#aaa;--light:#e0e0e0;--cream:#f5f2ed;--white:#fafafa;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--light);font-family:'Sorts Mill Goudy',serif;overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+#cur{position:fixed;width:26px;height:26px;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);animation:starSpin 7s linear infinite;}
+#cur svg{filter:drop-shadow(0 0 5px rgba(255,255,255,.95)) drop-shadow(0 0 12px rgba(255,255,255,.6)) drop-shadow(0 0 24px rgba(255,255,255,.25));}
+@keyframes starSpin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.97);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;letter-spacing:.25em;color:var(--white);text-decoration:none;text-transform:uppercase;text-shadow:0 0 20px rgba(255,255,255,.3);cursor:none;}
+.nav-back{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;cursor:none;}
+.nav-back:hover{color:var(--white);}
+.nav-back svg{transition:transform .2s;}
+.nav-back:hover svg{transform:translateX(-3px);}
+
+/* HEADER */
+.ap-header{padding:150px 24px 64px;text-align:center;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;}
+.ap-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 50% 40%,rgba(255,255,255,.05) 0%,transparent 65%);pointer-events:none;}
+.ap-eyebrow{font-family:'IM Fell English',serif;font-style:italic;font-size:14px;letter-spacing:.2em;color:var(--silver);margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:14px;}
+.ap-eyebrow::before,.ap-eyebrow::after{content:'';width:32px;height:1px;background:rgba(255,255,255,.3);}
+.ap-h1{font-family:'Playfair Display',serif;font-size:clamp(46px,8vw,92px);font-weight:900;color:var(--white);line-height:1;letter-spacing:.04em;text-shadow:0 0 30px rgba(255,255,255,.15);}
+.ap-sub{font-family:'IM Fell English',serif;font-size:18px;line-height:1.8;color:var(--muted);max-width:560px;margin:22px auto 0;}
+.ap-meta{display:inline-flex;margin-top:36px;border:1px solid rgba(255,255,255,.12);}
+.ap-meta-item{padding:16px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.12);}
+.ap-meta-item:last-child{border-right:none;}
+.ap-meta-label{font-size:9px;letter-spacing:.35em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+.ap-meta-value{font-family:'Playfair Display',serif;font-size:18px;color:var(--white);}
+
+/* ROLE GRID */
+.ap-wrap{max-width:1200px;margin:0 auto;padding:72px 40px 40px;}
+.ap-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.role{background:var(--near);border:1px solid rgba(255,255,255,.08);padding:48px 44px 44px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:border-color .3s;}
+.role:hover{border-color:rgba(255,255,255,.25);}
+.role::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--white),transparent);transform:scaleX(0);transition:transform .5s;}
+.role:hover::before{transform:scaleX(1);}
+.role-num{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;letter-spacing:.3em;color:rgba(255,255,255,.3);margin-bottom:14px;}
+.role-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,46px);font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--white);line-height:1;margin-bottom:20px;}
+.role-desc{font-size:17px;line-height:1.75;color:#a8a8a8;margin-bottom:24px;}
+.role-tracks{display:flex;flex-direction:column;gap:3px;margin-bottom:28px;}
+.track{background:var(--dark);border:1px solid rgba(255,255,255,.07);padding:16px 20px;}
+.track-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.track-desc{font-size:14px;line-height:1.6;color:#999;}
+.role-btn{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:var(--white);color:var(--black);padding:15px 40px;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:all .3s;cursor:none;}
+.role-btn:hover{background:var(--cream);box-shadow:0 0 36px rgba(255,255,255,.22);transform:translateY(-2px);}
+
+/* LINKTREE */
+.ap-links{max-width:1200px;margin:0 auto;padding:40px 40px 96px;text-align:center;}
+.ap-links p{font-family:'IM Fell English',serif;font-style:italic;font-size:16px;color:var(--muted);margin-bottom:18px;}
+.lt-btn{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.25);color:var(--light);padding:14px 36px;font-family:'Playfair Display',serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;transition:all .3s;cursor:none;}
+.lt-btn:hover{border-color:var(--white);color:var(--white);transform:translateY(-2px);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* FOOTER */
+.ap-footer{border-top:1px solid rgba(255,255,255,.07);padding:36px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.ap-footer-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;letter-spacing:.25em;color:rgba(255,255,255,.3);text-transform:uppercase;}
+.ap-footer-copy{font-size:11px;letter-spacing:.15em;color:var(--muted);}
+
+@media(max-width:768px){
+  #cur{display:none!important;}
+  body,a,button{cursor:auto!important;}
+  nav{padding:14px 18px;}
+  .ap-header{padding:120px 18px 48px;}
+  .ap-meta{flex-direction:column;}
+  .ap-meta-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);padding:12px 28px;}
+  .ap-meta-item:last-child{border-bottom:none;}
+  .ap-wrap{padding:40px 16px 24px;}
+  .ap-grid{grid-template-columns:1fr;}
+  .role{padding:36px 24px 32px;}
+  .role-btn{align-self:stretch;justify-content:center;}
+  .ap-links{padding:32px 16px 64px;}
+  .ap-footer{padding:24px 18px;flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><polygon points="13,1 15.2,9.8 24,10.5 17.5,16.2 19.8,25 13,20 6.2,25 8.5,16.2 2,10.5 10.8,9.8" fill="white"/></svg></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">xiMUN</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+    Back to Home
+  </a>
+</nav>
+
+<header class="ap-header">
+  <p class="ap-eyebrow">Applications Open</p>
+  <h1 class="ap-h1">Apply to xiMUN</h1>
+  <p class="ap-sub">Choose how you want to be part of xiMUN 2026. Read about each role below, then apply through its form.</p>
+  <div class="ap-meta">
+    <div class="ap-meta-item"><div class="ap-meta-label">Date</div><div class="ap-meta-value">November 13–14, 2026</div></div>
+    <div class="ap-meta-item"><div class="ap-meta-label">Location</div><div class="ap-meta-value">TBD</div></div>
+  </div>
+</header>
+
+<main class="ap-wrap">
+  <div class="ap-grid">
+
+    <section class="role reveal" id="delegates">
+      <div class="role-num">01</div>
+      <h2 class="role-title">Delegates</h2>
+      <p class="role-desc">Represent a nation in one of our committees. Research your country's stance, speak in debate, negotiate with other delegations, and work together to draft and pass resolutions.</p>
+      <a href="https://forms.gle/PwvHFe1mp5mpKMWZ8" target="_blank" rel="noopener" class="role-btn">Apply Now <span>→</span></a>
+    </section>
+
+    <section class="role reveal" id="chairs">
+      <div class="role-num">02</div>
+      <h2 class="role-title">Chairs</h2>
+      <p class="role-desc">Lead a committee from the dais. Moderate debate, enforce the rules of procedure, guide delegates toward a resolution, and evaluate their performance across both days.</p>
+      <a href="https://forms.gle/koB8t6yFySknC2kE7" target="_blank" rel="noopener" class="role-btn">Apply Now <span>→</span></a>
+    </section>
+
+    <section class="role reveal" id="admins">
+      <div class="role-num">03</div>
+      <h2 class="role-title">Admins</h2>
+      <p class="role-desc">Keep the conference running smoothly behind the scenes. Admins apply for one of two tracks:</p>
+      <div class="role-tracks">
+        <div class="track">
+          <div class="track-name">Committee Admin</div>
+          <div class="track-desc">Support a committee room: pass notes between delegates, help with roll call and documents, and assist the chairs.</div>
+        </div>
+        <div class="track">
+          <div class="track-name">Security Admin</div>
+          <div class="track-desc">Manage venue access, guide delegates around the venue, and help keep everyone safe and on schedule.</div>
+        </div>
+      </div>
+      <a href="https://forms.gle/gwML4cjo5bfqeyMp8" target="_blank" rel="noopener" class="role-btn">Apply Now <span>→</span></a>
+    </section>
+
+    <section class="role reveal" id="press">
+      <div class="role-num">04</div>
+      <h2 class="role-title">Press</h2>
+      <p class="role-desc">Cover the conference as it happens. Report on committee sessions, interview delegates, photograph key moments, and publish coverage throughout both days.</p>
+      <a href="https://forms.gle/GF7Kye7ACgX18CQP8" target="_blank" rel="noopener" class="role-btn">Apply Now <span>→</span></a>
+    </section>
+
+  </div>
+</main>
+
+<div class="ap-links reveal">
+  <p>Questions, updates and all our links in one place.</p>
+  <a href="https://linktr.ee/ximun.sa" target="_blank" rel="noopener" class="lt-btn">✦ Our Linktree</a>
+</div>
+
+<footer class="ap-footer">
+  <div class="ap-footer-logo">xiMUN</div>
+  <div class="ap-footer-copy">© 2025–2026 xiMUN · Al Khobar, Saudi Arabia</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');}),{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
