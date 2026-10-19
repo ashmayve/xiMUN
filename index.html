@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>xiMUN — Xi Model United Nations</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Petit+Formal+Script&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Petit+Formal+Script&family=Sorts+Mill+Goudy:ital@0;1&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root{
   --black:#080808;--near:#111;--dark:#1a1a1a;--mid:#2a2a2a;
@@ -568,6 +568,54 @@ footer{
 .sdg-strip-text{font-family:'Sorts Mill Goudy',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#111;white-space:nowrap;display:flex;align-items:center;gap:32px;padding-right:32px;}
 .sdg-strip-dot{width:5px;height:5px;transform:rotate(45deg);background:#111;display:inline-block;flex-shrink:0;}
 @keyframes sdgMarquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ===== CRT / Y2K MONITOR LAYER ===== */
+.crt-scan,.crt-vig,.crt-flick,.crt-roll{position:fixed;inset:0;pointer-events:none;}
+.crt-scan{z-index:9000;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.28) 3px,rgba(0,0,0,0) 4px);mix-blend-mode:multiply;}
+.crt-vig{z-index:9001;background:radial-gradient(ellipse 120% 100% at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%);box-shadow:inset 0 0 120px rgba(0,0,0,.7);}
+.crt-flick{z-index:9002;background:rgba(255,255,255,.018);animation:crtFlicker .12s steps(2) infinite;}
+@keyframes crtFlicker{0%{opacity:.35}50%{opacity:.8}100%{opacity:.5}}
+.crt-roll{z-index:9003;height:22vh;inset:auto 0 auto 0;top:-25vh;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.035) 50%,transparent);animation:crtRoll 7s linear infinite;}
+@keyframes crtRoll{to{top:110vh}}
+body.crt-jolt{animation:crtJolt .18s steps(3) 1;}
+@keyframes crtJolt{0%{transform:translateX(0);filter:none}33%{transform:translateX(-4px) skewX(-.6deg);filter:hue-rotate(20deg) contrast(1.3)}66%{transform:translateX(3px);filter:saturate(2)}100%{transform:none;filter:none}}
+
+/* RGB-split glitch titles */
+.glitch{position:relative;display:inline-block;}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;opacity:.8;}
+.glitch::before{color:#ff2a55;transform:translate(-2px,0);mix-blend-mode:screen;clip-path:inset(0 0 60% 0);animation:glA 3.2s infinite steps(1);}
+.glitch::after{color:#29e7ff;transform:translate(2px,0);mix-blend-mode:screen;clip-path:inset(55% 0 0 0);animation:glB 2.7s infinite steps(1);}
+@keyframes glA{0%,86%,100%{clip-path:inset(0 0 100% 0);transform:none}87%{clip-path:inset(10% 0 70% 0);transform:translate(-6px,-1px)}90%{clip-path:inset(45% 0 30% 0);transform:translate(5px,1px)}93%{clip-path:inset(75% 0 5% 0);transform:translate(-3px,0)}}
+@keyframes glB{0%,80%,100%{clip-path:inset(100% 0 0 0);transform:none}81%{clip-path:inset(60% 0 20% 0);transform:translate(6px,1px)}84%{clip-path:inset(20% 0 55% 0);transform:translate(-5px,-1px)}87%{clip-path:inset(85% 0 0 0);transform:translate(3px,0)}}
+.hero-title.glitch{text-shadow:0 0 20px rgba(255,255,255,.9),0 0 60px rgba(255,255,255,.4),-2px 0 rgba(255,42,85,.5),2px 0 rgba(41,231,255,.5);}
+.sec-h.glitch::before,.sec-h.glitch::after{animation-duration:5.5s,4.8s;}
+
+/* pixel/terminal type for labels */
+.sec-tag,.hm-label,.dropdown-menu a,.hero-sub{font-family:'VT323',monospace!important;font-style:normal!important;letter-spacing:.14em!important;}
+.sec-tag{font-size:19px!important;color:#cfcfcf!important;}
+.hm-label{font-size:14px!important;}
+.hero-sub{font-size:24px!important;}
+.dropdown-menu a{font-size:22px!important;}
+@keyframes blink{50%{opacity:0}}
+
+/* buttons: chunky old-OS bevel */
+.btn-p{box-shadow:inset -3px -3px 0 rgba(0,0,0,.35),inset 3px 3px 0 rgba(255,255,255,.9),0 0 22px rgba(255,255,255,.18);}
+.btn-p:hover{animation:crtJolt .2s steps(3) 1;}
+
+/* status bar */
+.crt-status{position:fixed;left:0;right:0;bottom:0;z-index:8990;display:flex;justify-content:space-between;gap:16px;padding:5px 18px;font-family:'VT323',monospace;font-size:16px;letter-spacing:.12em;color:rgba(255,255,255,.55);background:rgba(8,8,8,.88);border-top:1px solid rgba(255,255,255,.1);text-transform:uppercase;pointer-events:none;}
+.crt-status .rec{color:#ff2a55;animation:blink 1.2s steps(1) infinite;}
+
+@media(max-width:768px){
+  .crt-status{font-size:13px;padding:4px 12px;}
+  .crt-status .hide-sm{display:none;}
+  .crt-scan{background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.2) 3px,rgba(0,0,0,0) 4px);}
+}
+@media(prefers-reduced-motion:reduce){
+  .crt-flick,.crt-roll{display:none;}
+  .glitch::before,.glitch::after{animation:none;display:none;}
+  body.crt-jolt,.btn-p:hover{animation:none;}
+}
 </style>
 </head>
 <body>
@@ -587,7 +635,6 @@ footer{
     <a href="#about" onclick="closeMenu()">About</a>
     <a href="#past" onclick="closeMenu()">Past Conferences</a>
     <a href="team.html">Team</a>
-    <a href="#gallery" onclick="closeMenu()">Gallery</a>
     <a href="apply.html" class="menu-cta">Apply Now</a>
   </nav>
 </nav>
@@ -663,7 +710,7 @@ footer{
       <div class="hero-logo-glow"></div>
     </div>
     <div class="od" style="animation-delay:.5s"><div class="od-line"></div><div class="od-d"></div><div class="od-c"></div><div class="od-d"></div><div class="od-line"></div></div>
-    <h1 class="hero-title">XIMUN</h1>
+    <h1 class="hero-title glitch" data-text="XIMUN">XIMUN</h1>
     <p class="hero-sub">Where the unseen finds its voice</p>
     <div class="hero-meta">
       <div class="hm-item"><div class="hm-label">Date</div><div class="hm-value">Nov 13–14, 2026</div></div>
@@ -844,51 +891,6 @@ footer{
   </svg>
 </div>
 
-<!-- GALLERY PREVIEW -->
-<section id="gallery" style="background:var(--near);padding:0;overflow:hidden;">
-  <div class="gal-preview-header">
-    <div class="gal-preview-left reveal">
-      <p class="sec-tag">Gallery</p>
-      <h2 class="sec-h" style="font-size:clamp(40px,6vw,80px);line-height:1.0;">Our <em style="font-style:italic;color:var(--silver);">Gallery</em></h2>
-      <p class="sec-body" style="margin-bottom:36px;">Every photo tells a story — debates, diplomacy, and the moments between.</p>
-      <a href="gallery.html" class="gal-view-btn">
-        <span>✦</span> View Full Gallery
-      </a>
-    </div>
-    <div class="gal-preview-right">
-      <div class="gal-carousel" id="galCarousel">
-        <div class="gal-track" id="galTrack">
-          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><path d="M18,14 L20,10 L28,10 L30,14" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Opening Ceremony · xiMUN 2024</div></div>
-          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Committee Session in Motion</div></div>
-          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Delegates at Welcome Dinner</div></div>
-          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Best Delegate Award Ceremony</div></div>
-          <div class="gal-slide"><div class="g2-ph"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="14" width="36" height="26" rx="3" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><circle cx="24" cy="27" r="7" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/></svg><p class="g2-ph-text">Photo coming soon</p></div><div class="gal-slide-cap">Closing Ceremony</div></div>
-        </div>
-      </div>
-      <div class="gal-controls">
-        <button class="gal-ctrl" onclick="galMove(-1)" aria-label="Previous">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-        <div class="gal-dots" id="galDots"></div>
-        <button class="gal-ctrl" onclick="galMove(1)" aria-label="Next">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4L12 9L7 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TWIN-WAVE DIVIDER -->
-<div class="div-wave" style="background:var(--near)">
-  <svg width="100%" height="44" viewBox="0 0 1200 44" preserveAspectRatio="none" fill="none">
-    <path d="M0,16 C200,16 200,4 400,4 C600,4 600,40 800,40 C1000,40 1000,16 1200,16" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
-    <path d="M0,28 C200,28 200,40 400,40 C600,40 600,4 800,4 C1000,4 1000,28 1200,28" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
-    <circle cx="600" cy="22" r="5" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-    <circle cx="600" cy="22" r="2" fill="rgba(255,255,255,0.3)"/>
-  </svg>
-</div>
-
-<!-- APPLY -->
 <section id="apply" style="background:var(--near);border-top:1px solid rgba(255,255,255,.07);">
   <div class="sec-inner">
     <div class="reveal" style="text-align:center;margin-bottom:48px">
@@ -942,7 +944,6 @@ footer{
         <li><a href="#about">About xiMUN</a></li>
         <li><a href="#past">Past Conferences</a></li>
         <li><a href="team.html">Meet the Team</a></li>
-        <li><a href="#gallery">Gallery</a></li>
       </ul>
     </div>
 
@@ -1047,25 +1048,6 @@ function switchAcTab(acId, tab, btn){
     target.style.display = (tab==='committees') ? 'block' : 'flex';
   }
 }
-
-// GALLERY CAROUSEL
-let galIdx=0;
-const galSlides=document.querySelectorAll('.gal-slide');
-const galTrack=document.getElementById('galTrack');
-const galDotsEl=document.getElementById('galDots');
-galSlides.forEach((_,i)=>{
-  const d=document.createElement('div');
-  d.className='gal-dot'+(i===0?' active':'');
-  d.onclick=()=>galGoTo(i);
-  galDotsEl.appendChild(d);
-});
-function galGoTo(n){
-  galIdx=(n+galSlides.length)%galSlides.length;
-  galTrack.style.transform=`translateX(-${galIdx*100}%)`;
-  document.querySelectorAll('.gal-dot').forEach((d,i)=>d.classList.toggle('active',i===galIdx));
-}
-function galMove(dir){galGoTo(galIdx+dir);}
-setInterval(()=>galMove(1),4000);
 
 // SCROLL REVEAL
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08});
@@ -1828,6 +1810,24 @@ function revealSecret(btn){
     document.getElementById('geo-secret').style.boxShadow='none';
   },1000);
 }
+</script>
+
+<!-- CRT LAYER -->
+<div class="crt-scan"></div><div class="crt-roll"></div><div class="crt-flick"></div><div class="crt-vig"></div>
+<div class="crt-status"><span><span class="rec">●</span> REC · xiMUN.EXE</span><span class="hide-sm">NOV 13–14 · 2026</span><span id="crtClock">00:00:00</span></div>
+<script>
+(function(){
+  // glitch section headings
+  document.querySelectorAll('.sec-h').forEach(function(h){
+    if(h.children.length===0){h.classList.add('glitch');h.setAttribute('data-text',h.textContent);}
+  });
+  // clock
+  var c=document.getElementById('crtClock');
+  function tick(){var d=new Date();c.textContent=d.toTimeString().slice(0,8);}tick();setInterval(tick,1000);
+  // random screen jolt
+  var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!rm){(function j(){setTimeout(function(){document.body.classList.add('crt-jolt');setTimeout(function(){document.body.classList.remove('crt-jolt');},200);j();},6000+Math.random()*9000);})();}
+})();
 </script>
 </body>
 </html>
